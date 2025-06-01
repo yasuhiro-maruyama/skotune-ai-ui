@@ -1,0 +1,30 @@
+openapi: 3.0.0
+info:
+  title: スコチューン Next.js API Route
+  version: 1.0.0
+paths:
+  /api/auth/login:
+    post:
+      summary: ログイン照会API
+      description: リクエストに合致したユーザ情報を返却
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - user_id
+                - password
+              properties:
+                user_id:
+                  type: string
+                password:
+                  type: string
+      responses:
+        "200":
+          description: 成功時のレスポンス
+        "400":
+          description: リクエストエラー
+        "401":
+          description: 認証失敗

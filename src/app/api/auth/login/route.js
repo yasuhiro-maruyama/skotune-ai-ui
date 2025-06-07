@@ -1,4 +1,4 @@
-// Next.js API Route(ログイン照会API) POST通信
+// Next.js API Route(ログイン照会BFF) BP001
 import { schema } from "@/validators/auth/loginSchema";
 import { validateRequest } from "@/utils/apiUtils";
 import { HTTP_STATUS, RESPONSE_CODE, CONTENT_TYPE } from "@/lib/apiConstants";

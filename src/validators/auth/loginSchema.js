@@ -1,4 +1,4 @@
-// Next.js API Route(ログイン照会API) バリデーション
+// Next.js API Route(ログイン照会BFF) バリデーション
 import * as yup from "yup";
 import { validationMessages } from "@/lib/messages";
 

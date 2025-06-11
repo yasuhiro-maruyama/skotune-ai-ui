@@ -45,20 +45,20 @@ export default function Page() {
         <form className="space-y-5" onSubmit={loginButton}>
           <div>
             <label
-              htmlFor="mail_address"
+              htmlFor="user_id"
               className="block text-sm font-medium text-gray-600"
             >
               メールアドレス
             </label>
             <input
-              type="mail_address"
-              id="mail_address"
+              type="user_id"
+              id="user_id"
               className="w-full px-4 py-2 mt-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
               placeholder="you@example.com"
               onChange={(e) => {
                 dispatch({
                   type: ACTION_TYPE.INPUT,
-                  field: "mail_address",
+                  field: "user_id",
                   payload: e.target.value,
                 });
               }}

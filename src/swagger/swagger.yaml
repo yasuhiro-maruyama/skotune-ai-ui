@@ -14,10 +14,10 @@ paths:
             schema:
               type: object
               required:
-                - mail_address
+                - user_id
                 - password
               properties:
-                mail_address:
+                user_id:
                   type: string
                 password:
                   type: string

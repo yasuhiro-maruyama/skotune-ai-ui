@@ -2,7 +2,7 @@
 import apiClient from "@/app/model/BFFModel";
 
 export async function bp001Model(state) {
-  const { mail_address, password } = state;
-  const res = await apiClient.post("/auth/login", { mail_address, password });
+  const { user_id, password } = state;
+  const res = await apiClient.post("/auth/login", { user_id, password });
   return res.data;
 }

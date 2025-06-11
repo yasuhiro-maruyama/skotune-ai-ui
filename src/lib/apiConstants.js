@@ -15,7 +15,7 @@ export const HTTP_STATUS = {
 export const RESPONSE_CODE = {
   SUCCESS: "0000",
   INTERNAL_SERVER_ERROR: "E000",
-  VALIDATION_ERROR: "E001",
+  VALIDATION_ERROR: "E004",
 };
 
 // コンテントタイプ

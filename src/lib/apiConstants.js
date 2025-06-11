@@ -14,6 +14,7 @@ export const HTTP_STATUS = {
 // レスポンスコード
 export const RESPONSE_CODE = {
   SUCCESS: "0000",
+  NOT_FOUND: "I001",
   INTERNAL_SERVER_ERROR: "E000",
   VALIDATION_ERROR: "E004",
 };

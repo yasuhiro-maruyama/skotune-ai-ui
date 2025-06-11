@@ -1,11 +1,11 @@
 openapi: 3.0.0
 info:
-  title: スコチューン Next.js API Route
+  title: skotune-ai Next.js API Route
   version: 1.0.0
 paths:
   /api/auth/login:
     post:
-      summary: ログイン照会API
+      summary: ログイン照会BFF
       description: リクエストに合致したユーザ情報を返却
       requestBody:
         required: true
@@ -14,10 +14,10 @@ paths:
             schema:
               type: object
               required:
-                - user_id
+                - mail_address
                 - password
               properties:
-                user_id:
+                mail_address:
                   type: string
                 password:
                   type: string

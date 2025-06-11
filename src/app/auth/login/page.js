@@ -3,6 +3,7 @@ import { useRouter } from "next/navigation";
 import { useReducer } from "react";
 import { toast } from "sonner";
 import { ACTION_TYPE } from "@/lib/uiConstants";
+import { UI_MSG } from "@/lib/messages";
 import { bp001Model } from "@/app/model/bff/post/BP001Model";
 
 // ステート管理
@@ -31,8 +32,8 @@ export default function Page() {
     e.preventDefault();
     // ログイン照会BFF呼び出し
     const result = await bp001Model(state);
-
-    result ? router.push("/") : toast.error("ログインに失敗しました。");
+    // 正常に返却されれば、ホーム画面に遷移
+    result.success_flg ? router.push("/") : toast.error(UI_MSG.authError);
   };
 
   return (
@@ -44,20 +45,20 @@ export default function Page() {
         <form className="space-y-5" onSubmit={loginButton}>
           <div>
             <label
-              htmlFor="email"
+              htmlFor="mail_address"
               className="block text-sm font-medium text-gray-600"
             >
               メールアドレス
             </label>
             <input
-              type="email"
-              id="email"
+              type="mail_address"
+              id="mail_address"
               className="w-full px-4 py-2 mt-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
               placeholder="you@example.com"
               onChange={(e) => {
                 dispatch({
                   type: ACTION_TYPE.INPUT,
-                  field: "user_id",
+                  field: "mail_address",
                   payload: e.target.value,
                 });
               }}

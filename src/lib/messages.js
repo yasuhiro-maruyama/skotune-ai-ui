@@ -1,6 +1,13 @@
 // 定数ファイル(メッセージ用)
-export const internalServerError = "内部サーバーエラーが発生しました。";
-export const validationError = "バリデーションエラーが発生しました。";
+export const API_MSG = {
+  internalServerError: "内部サーバーエラーが発生しました。",
+  validationError: "バリデーションエラーが発生しました。",
+};
+
+export const UI_MSG = {
+  authError:
+    "ログイン情報が正しくありません。メールアドレスまたはパスワードが正しいかご確認お願いします。",
+};
 
 // バリデーションエラーメッセージ
 export const validationMessages = {

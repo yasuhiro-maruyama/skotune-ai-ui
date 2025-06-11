@@ -2,7 +2,7 @@
 import logger from "@/lib/logger";
 import { ValidationError } from "yup";
 import { HTTP_STATUS, RESPONSE_CODE, CONTENT_TYPE } from "@/lib/apiConstants";
-import * as messages from "@/lib/messages";
+import { API_MSG } from "@/lib/messages";
 
 // バリデーションチェック(共通)
 export async function validateRequest(schema, data) {
@@ -17,12 +17,12 @@ export async function validateRequest(schema, data) {
     // エラー情報返却
     if (error instanceof ValidationError) {
       // バリデーションエラー
-      logger.error(messages.validationError, error);
+      logger.error(API_MSG.validationError, error);
       return new Response(
         JSON.stringify({
           success_flg: false,
           code: RESPONSE_CODE.VALIDATION_ERROR,
-          message: messages.validationError,
+          message: API_MSG.validationError,
           error: error.errors,
         }),
         {
@@ -34,12 +34,12 @@ export async function validateRequest(schema, data) {
       );
     }
     // 内部サーバーエラー
-    logger.error(messages.internalServerError, error);
+    logger.error(API_MSG.internalServerError, error);
     return new Response(
       JSON.stringify({
         success_flg: false,
         code: RESPONSE_CODE.INTERNAL_SERVER_ERROR,
-        message: messages.internalServerError,
+        message: API_MSG.internalServerError,
         error,
       }),
       {

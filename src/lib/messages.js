@@ -2,6 +2,7 @@
 export const API_MSG = {
   internalServerError: "内部サーバーエラーが発生しました。",
   validationError: "バリデーションエラーが発生しました。",
+  authError: "認証エラーが発生しました。",
 };
 
 export const UI_MSG = {

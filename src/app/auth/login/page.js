@@ -4,7 +4,8 @@ import { useReducer } from "react";
 import { toast } from "sonner";
 import { ACTION_TYPE } from "@/lib/uiConstants";
 import { UI_MSG } from "@/lib/messages";
-import { bp001Model } from "@/app/model/bff/post/BP001Model";
+import { bp001Model } from "@/app/model/bff/BP001Model";
+import userModel from "@/app/model/userModel";
 
 // ステート管理
 const reducer = (state, action) => {
@@ -30,10 +31,15 @@ export default function Page() {
   const loginButton = async (e) => {
     // デフォルトの送信動作(ページリロードなど)を防ぐ
     e.preventDefault();
-    // ログイン照会BFF呼び出し
+    // ログイン照会BFF実行
     const result = await bp001Model(state);
-    // 正常に返却されれば、ホーム画面に遷移
-    result.success_flg ? router.push("/") : toast.error(UI_MSG.authError);
+
+    // 異常終了であれば、メッセージを表示して終了
+    if (!result.success_flg) toast.error(UI_MSG.authError);
+
+    // 正常に返却されれば、ユーザー情報を保存してホーム画面に遷移
+    userModel.getState().setUser(result.user_info);
+    router.push("/");
   };
 
   return (

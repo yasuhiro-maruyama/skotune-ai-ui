@@ -10,28 +10,20 @@ const apiClient = axios.create({
   withCredentials: true,
 });
 
-// リクエスト前に何か処理したい場合（例：トークン自動付与）
-apiClient.interceptors.request.use(
-  (config) => {
-    const token =
-      typeof window !== "undefined" ? localStorage.getItem("token") : null;
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
-    }
-    return config;
-  },
-  (error) => Promise.reject(error)
-);
-
-// レスポンス後の処理（エラー共通処理など）
+// レスポンスの処理（エラー共通処理など）
 apiClient.interceptors.response.use(
   (response) => response,
   (error) => {
-    const message =
-      error.response?.data?.message ||
-      error.message ||
-      "通信エラーが発生しました";
-    return Promise.reject(new Error(message));
+    // 400系のエラーは正常系として各BFFモデルに返却
+    if (
+      error.response &&
+      error.response.status >= 400 &&
+      error.response.status < 500
+    ) {
+      return Promise.resolve(error.response);
+    }
+    // それ以外のエラーはrejectして例外として処理する
+    return Promise.reject(error);
   }
 );
 

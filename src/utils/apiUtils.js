@@ -11,7 +11,7 @@ export async function validateRequest(schema, data) {
       abortEarly: false,
       stripUnknown: true,
     });
-    // 問題なし
+    // チェックOK
     return result;
   } catch (error) {
     // エラー情報返却
@@ -23,10 +23,9 @@ export async function validateRequest(schema, data) {
           success_flg: false,
           code: RESPONSE_CODE.VALIDATION_ERROR,
           message: API_MSG.validationError,
-          error: error.errors,
         }),
         {
-          status: HTTP_STATUS.BAD_REQUEST,
+          status: HTTP_STATUS.VALIDATION_ERROR,
           headers: {
             "Content-Type": CONTENT_TYPE.APPLICATION_JSON,
           },

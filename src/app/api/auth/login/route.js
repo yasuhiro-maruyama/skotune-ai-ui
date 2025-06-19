@@ -18,8 +18,8 @@ export async function POST(req) {
   // ログイン照会API呼び出し
   const result = await ap001Model(param);
 
-  // 異常終了 もしくは ユーザーが取得出来なかった場合、処理を終了
-  if (!result.success_flg || result.code === RESPONSE_CODE.NOT_FOUND) {
+  // 異常終了の場合、全て認証エラーとする
+  if (!result.success_flg) {
     return new Response(
       JSON.stringify({
         success_flg: false,

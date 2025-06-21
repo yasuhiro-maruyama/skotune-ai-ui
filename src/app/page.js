@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { bp002Model } from "@/app/model/bff/BP002Model";
-import userModel from "@/app/model/userModel";
+import userModel from "@/app/model/domain/userModel";
 
 // ホーム画面
 export default function Page() {

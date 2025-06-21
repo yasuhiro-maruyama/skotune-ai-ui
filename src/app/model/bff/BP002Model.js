@@ -1,6 +1,6 @@
 // BP002Model トークン取得BFF
 "use server";
-import apiClient from "@/app/model/BFFModel";
+import apiClient from "@/app/model/bff/BFFModel";
 import logger from "@/lib/logger";
 
 const ifName = "BP002_トークン取得BFF";

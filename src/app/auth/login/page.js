@@ -5,7 +5,7 @@ import { toast } from "sonner";
 import { ACTION_TYPE } from "@/lib/uiConstants";
 import { UI_MSG } from "@/lib/messages";
 import { bp001Model } from "@/app/model/bff/BP001Model";
-import userModel from "@/app/model/userModel";
+import userModel from "@/app/model/domain/userModel";
 
 // ステート管理
 const reducer = (state, action) => {

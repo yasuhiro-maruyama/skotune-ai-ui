@@ -1,6 +1,6 @@
 // BP001Model ログイン照会BFF
 "use server";
-import apiClient from "@/app/model/BFFModel";
+import apiClient from "@/app/model/bff/BFFModel";
 import logger from "@/lib/logger";
 
 const ifName = "BP001_ログイン照会BFF";

@@ -1,5 +1,5 @@
 // AP001Model ログイン照会API
-import apiClient from "@/app/model/APIModel";
+import apiClient from "@/app/model/api/APIModel";
 import logger from "@/lib/logger";
 
 const ifName = "AP001_ログイン照会API";

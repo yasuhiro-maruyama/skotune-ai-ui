@@ -1,4 +1,5 @@
 // APIModel
+"use server";
 import axios from "axios";
 import { CONTENT_TYPE } from "@/lib/apiConstants";
 

@@ -1,4 +1,5 @@
 // BFFModel
+"use client";
 import axios from "axios";
 import { CONTENT_TYPE } from "@/lib/apiConstants";
 

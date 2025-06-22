@@ -1,4 +1,5 @@
 // ユーザーModel
+"use client";
 import { create } from "zustand";
 
 const userModel = create((set) => ({

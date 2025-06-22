@@ -1,4 +1,5 @@
 // Next.js API Route(ログイン照会BFF) BP001
+"use server"
 import { NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
 import redis from "@/lib/redis";

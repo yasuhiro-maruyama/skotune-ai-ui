@@ -1,4 +1,5 @@
 // Next.js API Route(トークン取得BFF) BP002
+"use server";
 import { cookies } from "next/headers";
 import jwt from "jsonwebtoken";
 import redis from "@/lib/redis";

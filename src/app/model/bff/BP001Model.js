@@ -1,4 +1,5 @@
 // BP001Model ログイン照会BFF
+"use client";
 import apiClient from "@/app/model/bff/BFFModel";
 
 const ifName = "BP001_ログイン照会BFF";

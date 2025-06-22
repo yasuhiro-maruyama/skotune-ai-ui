@@ -1,4 +1,5 @@
 // AP001Model ログイン照会API
+"use server";
 import apiClient from "@/app/model/api/APIModel";
 import logger from "@/lib/logger";
 

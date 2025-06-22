@@ -1,6 +1,7 @@
-// Next.js API Route(ログイン照会BFF) BP001
-"use server"
+// BP001_ログイン照会BFF
+"use server";
 import { NextResponse } from "next/server";
+import { randomUUID } from "crypto";
 import jwt from "jsonwebtoken";
 import redis from "@/lib/redis";
 import { schema } from "@/validators/BP001Schema";
@@ -37,7 +38,7 @@ export async function POST(req) {
   }
 
   // トークンを生成
-  const sessionId = crypto.randomUUID();
+  const sessionId = randomUUID();
   const token = jwt.sign({ sessionId }, process.env.JWT_SECRET, {
     expiresIn: SESSION_EXPIRES_IN,
   });

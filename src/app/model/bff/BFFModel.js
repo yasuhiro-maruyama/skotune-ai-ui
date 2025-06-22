@@ -3,7 +3,7 @@
 import axios from "axios";
 import { CONTENT_TYPE } from "@/lib/apiConstants";
 
-const apiClient = axios.create({
+const bffClient = axios.create({
   baseURL: process.env.NEXT_PUBLIC_BFF_BASE_URL,
   headers: {
     "Content-Type": CONTENT_TYPE.APPLICATION_JSON,
@@ -12,7 +12,7 @@ const apiClient = axios.create({
 });
 
 // レスポンスの処理（エラー共通処理など）
-apiClient.interceptors.response.use(
+bffClient.interceptors.response.use(
   (response) => response,
   (error) => {
     // 400系のエラーは正常系として各BFFモデルに返却
@@ -28,4 +28,4 @@ apiClient.interceptors.response.use(
   }
 );
 
-export default apiClient;
+export default bffClient;

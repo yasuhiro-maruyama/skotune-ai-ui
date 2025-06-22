@@ -1,12 +1,12 @@
-// BP002Model トークン取得BFF
+// BP002_トークン取得BFF Model
 "use client";
-import apiClient from "@/app/model/bff/BFFModel";
+import bffClient from "@/app/model/bff/BFFModel";
 
 const ifName = "BP002_トークン取得BFF";
 
 export async function bp002Model() {
   try {
-    const res = await apiClient.post("/auth/token", { credentials: "include" });
+    const res = await bffClient.post("/auth/token", { credentials: "include" });
     return res.data;
   } catch (err) {
     return { success_flg: false };

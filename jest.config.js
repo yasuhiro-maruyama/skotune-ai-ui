@@ -4,10 +4,9 @@ const config = {
   transform: {
     "^.+\\.jsx?$": "babel-jest",
   },
-  extensionsToTreatAsEsm: [".js", ".jsx"],
   moduleNameMapper: {
     "^@/(.*)$": "<rootDir>/src/$1",
   },
 };
 
-export default config;
+module.exports = config;

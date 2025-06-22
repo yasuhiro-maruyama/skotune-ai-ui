@@ -1,4 +1,5 @@
 // BP001_ログイン照会BFF テスト
+import { validateRequest } from "@/utils/apiUtils";
 import bffClient from "@/app/model/bff/BFFModel";
 import apiClient from "@/app/model/api/APIModel";
 import { HTTP_STATUS, RESPONSE_CODE } from "@/lib/apiConstants";
@@ -79,6 +80,27 @@ beforeEach(() => {
 
 afterEach(() => {
   process.env = ENV;
+});
+
+describe("apiUtils_テスト実行", () => {
+  it("E01_異常系：内部エラー", async () => {
+    // モック作成
+    const schema = {
+      validate: async () => {
+        throw new Error("E01_異常系：内部エラー");
+      },
+    };
+
+    // テスト対象実行
+    const res = await validateRequest(schema, successReq);
+    const result = await res.json();
+
+    // 期待値確認
+    expect(res.status).toBe(HTTP_STATUS.INTERNAL_SERVER_ERROR);
+    expect(result.success_flg).toBe(false);
+    expect(result.code).toBe(RESPONSE_CODE.INTERNAL_SERVER_ERROR);
+    expect(result.message).toBe(API_MSG.internalServerError);
+  });
 });
 
 describe("BP001_ログイン照会BFF_Model_テスト実行", () => {

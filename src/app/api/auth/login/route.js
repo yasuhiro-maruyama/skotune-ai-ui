@@ -1,5 +1,5 @@
 // Next.js API Route(ログイン照会BFF) BP001
-import { cookies } from "next/headers";
+import { NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
 import redis from "@/lib/redis";
 import { schema } from "@/validators/BP001Schema";
@@ -46,24 +46,20 @@ export async function POST(req) {
     ex: SESSION_EXPIRES_IN,
   });
 
-  // クッキーに保存
-  // const cookieStore = await cookies();
-  // cookieStore.set({
-  //   name: process.env.COOKIE_TOKEN,
-  //   value: token,
-  //   path: "/",
-  //   httpOnly: true,
-  //   maxAge: SESSION_EXPIRES_IN,
-  //   sameSite: "lax",
-  //   secure: process.env.NODE_ENV === "production",
-  // });
-
-  // 正常終了の場合、cookieを付与してログイン情報を返却
-  return new Response(JSON.stringify(result), {
+  const response = NextResponse.json(result, {
     status: HTTP_STATUS.OK,
     headers: {
-      // "Set-Cookie": cookieStore,
       "Content-Type": CONTENT_TYPE.APPLICATION_JSON,
     },
   });
+
+  response.cookies.set(process.env.COOKIE_TOKEN, token, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "lax",
+    path: "/",
+    maxAge: SESSION_EXPIRES_IN,
+  });
+
+  return response;
 }

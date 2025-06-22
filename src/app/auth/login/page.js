@@ -31,7 +31,7 @@ export default function Page() {
   const loginButton = async (e) => {
     // デフォルトの送信動作(ページリロードなど)を防ぐ
     e.preventDefault();
-    // ログイン照会BFF実行
+    // BP001_ログイン照会BFF実行
     const result = await bp001Model(state);
 
     // 異常終了であれば、メッセージを表示して終了

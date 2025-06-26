@@ -2,13 +2,13 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { bp002Model } from "@/app/model/bff/BP002Model";
-import userModel from "@/app/model/domain/userModel";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
 
 // ホーム画面
 export default function Page() {
   const router = useRouter();
-  const [authChecked, setAuthChecked] = useState(false);
+  const isMobile = useMediaQuery("(max-width: 768px)");
+  const [activeTab, setActiveTab] = useState(0);
 
   const tabs = [
     {
@@ -37,6 +37,9 @@ export default function Page() {
           />
         </svg>
       ),
+      content: (
+        <p>Coming Soon... 開発中の機能(ホーム画面)のため、お待ちください</p>
+      ),
     },
     {
       label: "検索",
@@ -59,6 +62,9 @@ export default function Page() {
             stroke-linecap="round"
           />
         </svg>
+      ),
+      content: (
+        <p>Coming Soon... 開発中の機能(検索画面)のため、お待ちください</p>
       ),
     },
     {
@@ -89,6 +95,11 @@ export default function Page() {
           />
         </svg>
       ),
+      content: (
+        <p>
+          Coming Soon... 開発中の機能(採点履歴登録画面)のため、お待ちください
+        </p>
+      ),
     },
     {
       label: "楽曲レコメンド",
@@ -106,9 +117,14 @@ export default function Page() {
           />
         </svg>
       ),
+      content: (
+        <p>
+          Coming Soon... 開発中の機能(楽曲レコメンド画面)のため、お待ちください
+        </p>
+      ),
     },
     {
-      label: "ユーザー設定アイコン",
+      label: "ユーザー設定",
       icon: (
         <svg
           width="24"
@@ -125,9 +141,14 @@ export default function Page() {
           />
         </svg>
       ),
+      content: (
+        <p>
+          Coming Soon... 開発中の機能(ユーザー設定画面)のため、お待ちください
+        </p>
+      ),
     },
     {
-      label: "モデル設定アイコン",
+      label: "モデル設定",
       icon: (
         <svg
           width="24"
@@ -195,9 +216,12 @@ export default function Page() {
           />
         </svg>
       ),
+      content: (
+        <p>Coming Soon... 開発中の機能(モデル設定画面)のため、お待ちください</p>
+      ),
     },
     {
-      label: "管理者アイコン",
+      label: "管理者",
       icon: (
         <svg
           width="24"
@@ -221,6 +245,9 @@ export default function Page() {
           />
         </svg>
       ),
+      content: (
+        <p>Coming Soon... 開発中の機能(管理者画面)のため、お待ちください</p>
+      ),
     },
     {
       label: "マイリスト作成",
@@ -241,30 +268,17 @@ export default function Page() {
           />
         </svg>
       ),
+      content: (
+        <p>
+          Coming Soon... 開発中の機能(マイリスト作成画面)のため、お待ちください
+        </p>
+      ),
     },
   ];
-  const [activeTab, setActiveTab] = useState(0);
 
   useEffect(() => {
-    const checkAuth = async () => {
-      // トークン取得APIを実行
-      const result = await bp002Model();
-      // トークンがなければログイン画面へリダイレクト
-      if (!result.success_flg) {
-        router.push("/auth/login");
-        return;
-      }
-
-      // 認証OK
-      setAuthChecked(true);
-      // ユーザー情報再保存
-      userModel.getState().setUser(result.user_info);
-    };
-    checkAuth();
-  }, [router]);
-
-  // 認証されていない場合、何もしない
-  if (!authChecked) return null;
+    if (isMobile) router.push("/home/mobile");
+  }, [isMobile, router]);
 
   return (
     <main>

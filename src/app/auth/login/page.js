@@ -4,7 +4,7 @@ import { useReducer } from "react";
 import { toast } from "sonner";
 import { ACTION_TYPE } from "@/lib/uiConstants";
 import { UI_MSG } from "@/lib/messages";
-import { bp001Model } from "@/app/model/bff/BP001Model";
+import { b001001Model } from "@/app/model/bff/B001001Model";
 import userModel from "@/app/model/domain/userModel";
 
 // ステート管理
@@ -31,8 +31,8 @@ export default function Page() {
   const loginButton = async (e) => {
     // デフォルトの送信動作(ページリロードなど)を防ぐ
     e.preventDefault();
-    // BP001_ログイン照会BFF実行
-    const result = await bp001Model(state);
+    // B001001_ログイン照会BFF実行
+    const result = await b001001Model(state);
 
     // 異常終了であれば、メッセージを表示して終了
     if (!result.success_flg) toast.error(UI_MSG.authError);

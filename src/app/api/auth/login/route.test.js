@@ -1,10 +1,10 @@
-// BP001_ログイン照会BFF テスト
+// B001001_ログイン照会BFF テスト
 import { validateRequest } from "@/utils/apiUtils";
 import bffClient from "@/app/model/bff/BFFModel";
 import apiClient from "@/app/model/api/APIModel";
 import { HTTP_STATUS, RESPONSE_CODE } from "@/lib/apiConstants";
 import { API_MSG } from "@/lib/messages";
-import { bp001Model } from "@/app/model/bff/BP001Model";
+import { b001001Model } from "@/app/model/bff/B001001Model";
 import { POST } from "@/app/api/auth/login/route";
 
 // bffClientをモック
@@ -103,13 +103,13 @@ describe("apiUtils_テスト実行", () => {
   });
 });
 
-describe("BP001_ログイン照会BFF_Model_テスト実行", () => {
+describe("B001001_ログイン照会BFF_Model_テスト実行", () => {
   it("S01_正常系：通信成功", async () => {
     // モック作成
     bffClient.post.mockResolvedValue({ data: successRes });
 
     // テスト対象実行
-    const res = await bp001Model(successReq);
+    const res = await b001001Model(successReq);
 
     // 期待値確認
     expect(res).toEqual(successRes);
@@ -120,14 +120,14 @@ describe("BP001_ログイン照会BFF_Model_テスト実行", () => {
     bffClient.post.mockRejectedValue(new Error("E01_異常系：通信失敗"));
 
     // テスト対象実行
-    const res = await bp001Model(successReq);
+    const res = await b001001Model(successReq);
 
     // 期待値確認
     expect(res.success_flg).toBe(false);
   });
 });
 
-describe("BP001_ログイン照会BFF_テスト実行", () => {
+describe("B001001_ログイン照会BFF_テスト実行", () => {
   it("S01_正常系：認証成功", async () => {
     // モック作成
     apiClient.post.mockResolvedValue({ data: successRes });

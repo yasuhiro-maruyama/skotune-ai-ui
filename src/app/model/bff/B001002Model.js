@@ -1,10 +1,10 @@
-// BP002_トークン取得BFF Model
+// B001002_トークン取得BFF Model
 "use client";
 import bffClient from "@/app/model/bff/BFFModel";
 
-const ifName = "BP002_トークン取得BFF";
+const ifName = "B001002_トークン取得BFF";
 
-export async function bp002Model() {
+export async function b001002Model() {
   try {
     const res = await bffClient.post("/auth/token", { credentials: "include" });
     return res.data;

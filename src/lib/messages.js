@@ -8,6 +8,8 @@ export const API_MSG = {
 export const UI_MSG = {
   authError:
     "ログイン情報が正しくありません。メールアドレスまたはパスワードが正しいかご確認お願いします。",
+  maintenanceError:
+    "システムのメンテナンス中のため、アクセスすることができません。",
 };
 
 // バリデーションエラーメッセージ

@@ -3,9 +3,10 @@ import "./globals.css";
 import { useEffect } from "react";
 import { Toaster } from "sonner";
 import { useRouter } from "next/navigation";
-import { bp002Model } from "@/app/model/bff/BP002Model";
-import userModel from "@/app/model/domain/userModel";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
+import userModel from "@/app/model/domain/userModel";
+import menuModel from "@/app/model/domain/menuModel";
+import { b001002Model } from "@/app/model/bff/B001002Model";
 
 export default function RootLayout({ children }) {
   const router = useRouter();
@@ -13,8 +14,8 @@ export default function RootLayout({ children }) {
 
   useEffect(() => {
     const checkAuth = async () => {
-      // トークン取得APIを実行
-      const result = await bp002Model();
+      // トークン取得BFF実行
+      const result = await b001002Model();
       // トークンがなければログイン画面へリダイレクト
       if (!result.success_flg) {
         router.push("/auth/login");
@@ -22,7 +23,9 @@ export default function RootLayout({ children }) {
       }
 
       // ユーザー情報再保存
-      userModel.getState().setUser(result.user_info);
+      userModel.getState().setUser(result.response_info.user_info);
+      // メニュー情報設定
+      menuModel.getState().setMenu(result.response_info.menu_info);
       // ホーム画面に遷移
       isMobile ? router.push("/home/mobile") : router.push("/home");
     };

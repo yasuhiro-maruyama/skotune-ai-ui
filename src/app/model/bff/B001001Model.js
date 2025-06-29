@@ -1,10 +1,10 @@
-// BP001_ログイン照会BFF Model
+// B001001_ログイン照会BFF Model
 "use client";
 import bffClient from "@/app/model/bff/BFFModel";
 
-const ifName = "BP001_ログイン照会BFF";
+const ifName = "B001001_ログイン照会BFF";
 
-export async function bp001Model(state) {
+export async function b001001Model(state) {
   const { user_id, password } = state;
 
   try {

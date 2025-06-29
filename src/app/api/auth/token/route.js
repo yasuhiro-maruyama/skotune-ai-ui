@@ -1,10 +1,8 @@
 // B001002_トークン取得BFF
 "use server";
-import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import jwt from "jsonwebtoken";
 import redis from "@/lib/redis";
-import { HTTP_STATUS, RESPONSE_CODE } from "@/lib/apiConstants";
 import { a001002Model } from "@/app/model/api/A001002Model";
 import {
   successResponse,

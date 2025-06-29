@@ -30,7 +30,7 @@ export async function POST(req) {
   });
 
   // Redisに保存
-  await redis.set(sessionId, JSON.stringify(result.user_info), {
+  await redis.set(sessionId, JSON.stringify(result.response_info), {
     ex: SESSION_EXPIRES_IN,
   });
 
@@ -38,6 +38,7 @@ export async function POST(req) {
     status: HTTP_STATUS.OK,
   });
 
+  // cookieに保存
   response.cookies.set(process.env.COOKIE_TOKEN, token, {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",

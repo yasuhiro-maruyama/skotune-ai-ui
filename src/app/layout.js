@@ -11,7 +11,7 @@ import { b001002Model } from "@/app/model/bff/B001002Model";
 export default function RootLayout({ children }) {
   const router = useRouter();
   const isMobile = useMediaQuery("(max-width: 768px)");
-  const [authChecked, setAuthChecked] = useState(false);
+  const [loadingCompleted, setLoadingCompleted] = useState(false);
 
   useEffect(() => {
     const pathname = window.location.pathname;
@@ -23,11 +23,10 @@ export default function RootLayout({ children }) {
       // トークンがなければログイン画面へリダイレクト
       if (!result.success_flg) {
         router.push("/auth/login");
+        setLoadingCompleted(true);
         return;
       }
 
-      // 認証OK
-      setAuthChecked(true);
       // ユーザー情報再保存
       userModel.getState().setUser(result.response_info.user_info);
       // メニュー情報設定
@@ -36,6 +35,7 @@ export default function RootLayout({ children }) {
       if (!skipPaths.includes(pathname)) {
         isMobile ? router.push("/home/mobile") : router.push("/home");
       }
+      setLoadingCompleted(true);
     };
 
     checkAuth();
@@ -44,7 +44,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
-        {authChecked ? (
+        {loadingCompleted ? (
           <>
             {children}
             <Toaster position="top-center" richColors />

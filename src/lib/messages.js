@@ -18,6 +18,10 @@ export const UI_MSG = {
 export const validationMessages = {
   required: (logical_name, field_name) =>
     `${logical_name}(${field_name})：必須チェック`,
+  length: (logical_name, field_name, len) =>
+    `${logical_name}(${field_name})：桁数チェック(${len}桁のみ)`,
   maxLength: (logical_name, field_name, len) =>
-    `${logical_name}(${field_name})：最大桁数チェック(${len})`,
+    `${logical_name}(${field_name})：最大桁数チェック(${len}桁まで)`,
+  alphaNumeric: (logical_name, field_name) =>
+    `${logical_name}(${field_name})：半角英数チェック`,
 };

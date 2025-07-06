@@ -53,3 +53,25 @@ paths:
           description: バリデーションエラー
         "500":
           description: 内部サーバーエラー
+  /api/search/artist/tune:
+    post:
+      summary: 全楽曲取得BFF
+      description: リクエストに合致した歌手の楽曲を全て返却
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - artist_id
+              properties:
+                artist_id:
+                  type: string
+      responses:
+        "200":
+          description: 成功時のレスポンス
+        "422":
+          description: バリデーションエラー
+        "500":
+          description: 内部サーバーエラー

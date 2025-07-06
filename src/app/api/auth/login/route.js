@@ -10,7 +10,7 @@ import { HTTP_STATUS } from "@/lib/apiConstants";
 import { a001001Model } from "@/app/model/api/auth/A001001Model";
 import { authErrorResponse } from "@/lib/response";
 
-const SESSION_EXPIRES_IN = 60 * 60; // ログインの有効時間(1時間)
+const SESSION_TIME = 60 * 60; // ログインの有効時間(1時間)
 
 export async function POST(req) {
   // バリデーションチェック
@@ -26,12 +26,12 @@ export async function POST(req) {
   // トークンを生成
   const sessionId = randomUUID();
   const token = jwt.sign({ sessionId }, process.env.JWT_SECRET, {
-    expiresIn: SESSION_EXPIRES_IN,
+    expiresIn: SESSION_TIME,
   });
 
   // Redisに保存
   await redis.set(sessionId, JSON.stringify(result.response_info), {
-    ex: SESSION_EXPIRES_IN,
+    ex: SESSION_TIME,
   });
 
   const response = NextResponse.json(result, {
@@ -44,7 +44,7 @@ export async function POST(req) {
     secure: process.env.NODE_ENV === "production",
     sameSite: "lax",
     path: "/",
-    maxAge: SESSION_EXPIRES_IN,
+    maxAge: SESSION_TIME,
   });
 
   return response;

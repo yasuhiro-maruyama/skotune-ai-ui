@@ -24,7 +24,32 @@ paths:
       responses:
         "200":
           description: 成功時のレスポンス
-        "400":
-          description: リクエストエラー
         "401":
           description: 認証失敗
+        "422":
+          description: バリデーションエラー
+  /api/search/tune:
+    post:
+      summary: 楽曲検索BFF
+      description: リクエストに合致した歌手・楽曲情報を返却
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - artist_name
+                - tune_name
+              properties:
+                artist_name:
+                  type: string
+                tune_name:
+                  type: string
+      responses:
+        "200":
+          description: 成功時のレスポンス
+        "422":
+          description: バリデーションエラー
+        "500":
+          description: 内部サーバーエラー

@@ -4,7 +4,7 @@ import { useReducer } from "react";
 import { toast } from "sonner";
 import { ACTION_TYPE } from "@/lib/uiConstants";
 import { UI_MSG } from "@/lib/messages";
-import { b001001Model } from "@/app/model/bff/B001001Model";
+import { b001001Model } from "@/app/model/bff/auth/B001001Model";
 import userModel from "@/app/model/domain/userModel";
 
 // ステート管理

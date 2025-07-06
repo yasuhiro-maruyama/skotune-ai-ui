@@ -1,10 +1,12 @@
 // 定数ファイル(メッセージ用)
+// API用メッセージ
 export const API_MSG = {
   internalServerError: "内部サーバーエラーが発生しました。",
   validationError: "バリデーションエラーが発生しました。",
   authError: "認証エラーが発生しました。",
 };
 
+// UI用メッセージ
 export const UI_MSG = {
   authError:
     "ログイン情報が正しくありません。メールアドレスまたはパスワードが正しいかご確認お願いします。",
@@ -12,10 +14,10 @@ export const UI_MSG = {
     "システムのメンテナンス中のため、アクセスすることができません。",
 };
 
-// バリデーションエラーメッセージ
+// バリデーションエラー用メッセージ
 export const validationMessages = {
-  required: (field_name) => `必須項目(${field_name})`,
-  // minLength: (field_name, len) =>
-  //   `${field_name}は${len}文字以上で入力してください`,
-  // invalidEmail: "正しいメールアドレスを入力してください",
+  required: (logical_name, field_name) =>
+    `${logical_name}(${field_name})：必須チェック`,
+  maxLength: (logical_name, field_name, len) =>
+    `${logical_name}(${field_name})：最大桁数チェック(${len})`,
 };

@@ -4,7 +4,7 @@ import bffClient from "@/app/model/bff/BFFModel";
 import apiClient from "@/app/model/api/APIModel";
 import { HTTP_STATUS, RESPONSE_CODE } from "@/lib/apiConstants";
 import { API_MSG } from "@/lib/messages";
-import { b001001Model } from "@/app/model/bff/B001001Model";
+import { b001001Model } from "@/app/model/bff/auth/B001001Model";
 import { POST } from "@/app/api/auth/login/route";
 
 // bffClientをモック

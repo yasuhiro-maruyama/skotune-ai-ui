@@ -4,10 +4,10 @@ import { NextResponse } from "next/server";
 import { randomUUID } from "crypto";
 import jwt from "jsonwebtoken";
 import redis from "@/lib/redis";
-import { schema } from "@/validators/B001001Schema";
+import { schema } from "@/validators/auth/B001001Schema";
 import { validateRequest } from "@/utils/apiUtils";
 import { HTTP_STATUS } from "@/lib/apiConstants";
-import { a001001Model } from "@/app/model/api/A001001Model";
+import { a001001Model } from "@/app/model/api/auth/A001001Model";
 import { authErrorResponse } from "@/lib/response";
 
 const SESSION_EXPIRES_IN = 60 * 60; // ログインの有効時間(1時間)

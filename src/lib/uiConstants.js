@@ -8,3 +8,8 @@ export const ACTION_TYPE = {
   INPUT: "INPUT",
   SELECT_BOX: "SELECT_BOX",
 };
+
+export const UI_TYPE = {
+  E_MAIL: "email",
+  PASSWORD: "password",
+};

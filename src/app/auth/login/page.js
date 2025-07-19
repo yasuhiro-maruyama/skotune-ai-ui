@@ -96,7 +96,12 @@ export default function Page() {
         </form>
         <p className="mt-4 text-sm text-center text-gray-500">
           アカウントをお持ちでない方は{" "}
-          <Link href="/auth/user" className="text-blue-500 hover:underline">
+          <Link
+            href="/auth/user"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-500 hover:underline"
+          >
             登録
           </Link>
         </p>

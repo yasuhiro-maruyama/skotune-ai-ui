@@ -43,7 +43,7 @@ export default function Page() {
 
     // 正常に返却されれば、ユーザー情報を保存してホーム画面に遷移
     userModel.getState().setUser(result.user_info);
-    router.push("/");
+    router.push("/home");
     return;
   };
 

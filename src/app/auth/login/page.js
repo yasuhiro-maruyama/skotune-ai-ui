@@ -1,4 +1,6 @@
 "use client";
+import { useState } from "react";
+import { Eye, EyeOff } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
@@ -18,10 +20,15 @@ export default function Page() {
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
   });
+
+  // パスワードの表示切り替えフラグ
+  const [showPassword, setShowPassword] = useState(false);
+  const passwordValue = watch("password");
 
   // ログインボタン押下時
   const loginButton = async (data) => {
@@ -74,13 +81,24 @@ export default function Page() {
             >
               パスワード
             </label>
-            <input
-              id="password"
-              type={UI_TYPE.PASSWORD}
-              className="w-full px-4 py-2 mt-1 border rounded-md focus:outline-none focus:ring-2 border-gray-300 focus:ring-blue-400"
-              placeholder="********"
-              {...register("password")}
-            />
+            <div className="relative">
+              <input
+                id="password"
+                type={showPassword ? UI_TYPE.TEXT : UI_TYPE.PASSWORD}
+                className="w-full px-4 py-2 mt-1 border rounded-md focus:outline-none focus:ring-2 border-gray-300 focus:ring-blue-400"
+                placeholder="********"
+                {...register("password")}
+              />
+              <button
+                type={UI_TYPE.BUTTON}
+                className="absolute inset-y-0 right-0 flex items-center px-3 text-gray-500 hover:text-gray-700"
+                onClick={() => setShowPassword(!showPassword)}
+                tabIndex={-1}
+                disabled={!passwordValue}
+              >
+                {showPassword ? <Eye size={20} /> : <EyeOff size={20} />}
+              </button>
+            </div>
             {errors.password && (
               <p className="text-red-500 text-sm mt-1">
                 {errors.password.message}
@@ -88,7 +106,7 @@ export default function Page() {
             )}
           </div>
           <button
-            type="submit"
+            type={UI_TYPE.SUBMIT}
             className="w-full py-2 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-md transition duration-200"
           >
             ログイン

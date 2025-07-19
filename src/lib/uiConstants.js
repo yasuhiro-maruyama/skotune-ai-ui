@@ -10,6 +10,10 @@ export const ACTION_TYPE = {
 };
 
 export const UI_TYPE = {
+  TEXT: "text",
   E_MAIL: "email",
   PASSWORD: "password",
+  TEXT: "text",
+  BUTTON: "button",
+  SUBMIT: "submit",
 };

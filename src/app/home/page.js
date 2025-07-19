@@ -2,14 +2,26 @@
 import { useState } from "react";
 import menuModel from "@/app/model/domain/menuModel";
 
+import ScoringDataRegister from "@/app/home/scoringDataRegister";
+
+const contentMap = {
+  scoringDataRegister: ScoringDataRegister,
+};
+
 // ホーム画面
 export default function Page() {
   const [activeTab, setActiveTab] = useState(0);
   const menu = menuModel((state) => state.menu);
 
+  // DBから取得したキーで各コンポーネントの呼び出し
+  const activeKey = menu?.[activeTab]?.content;
+  const ActiveContent = activeKey
+    ? contentMap[activeKey] || (() => <p>準備中</p>)
+    : () => null;
+
   return (
     <main>
-      <div className="w-[1920px] h-[1080px] relative overflow-hidden bg-white">
+      <div className="w-full h-screen relative overflow-hidden bg-white">
         <div className="w-64 h-[1080px] absolute left-0 top-0 overflow-hidden bg-white border-t-0 border-r border-b-0 border-l-0 border-[#e0e0e0]">
           <p className="absolute left-6 top-6 text-xl font-semibold text-left text-black">
             SkoTune AI
@@ -36,9 +48,7 @@ export default function Page() {
         {menu?.length > 0 && (
           <div className="flex justify-start items-start absolute left-[300px] top-[80px] gap-8">
             <div className="tab-content mt-4">
-              <div
-                dangerouslySetInnerHTML={{ __html: menu[activeTab].content }}
-              />
+              <ActiveContent />
             </div>
           </div>
         )}

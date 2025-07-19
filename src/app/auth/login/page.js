@@ -64,6 +64,7 @@ export default function Page() {
             <input
               id="user_id"
               type={UI_TYPE.E_MAIL}
+              maxLength={200}
               className="w-full px-4 py-2 mt-1 border rounded-md focus:outline-none focus:ring-2 border-gray-300 focus:ring-blue-400"
               placeholder="you@example.com"
               {...register("user_id")}
@@ -85,6 +86,8 @@ export default function Page() {
               <input
                 id="password"
                 type={showPassword ? UI_TYPE.TEXT : UI_TYPE.PASSWORD}
+                minLength={8}
+                maxLength={32}
                 className="w-full px-4 py-2 mt-1 border rounded-md focus:outline-none focus:ring-2 border-gray-300 focus:ring-blue-400"
                 placeholder="********"
                 {...register("password")}

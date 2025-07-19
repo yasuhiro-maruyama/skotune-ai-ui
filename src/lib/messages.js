@@ -30,6 +30,8 @@ export const apiValidationMessages = {
 export const uiValidationMessages = {
   required: (logical_name) => `${logical_name}を入力してください。`,
   length: (logical_name, len) => `${logical_name}は${len}桁のみ有効です。`,
+  minLength: (logical_name, len) => `${logical_name}は${len}桁以上です。`,
   maxLength: (logical_name, len) => `${logical_name}は最大${len}桁までです。`,
   alphaNumeric: (logical_name) => `${logical_name}は半角英数文字のみ有効です。`,
+  password: () => `パスワードは英字・数字・記号を1文字以上含めてください。`,
 };

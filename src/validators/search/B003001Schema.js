@@ -1,6 +1,11 @@
 // B003001_楽曲検索BFF Validation
 import * as yup from "yup";
-import { validationMessages } from "@/lib/messages";
+import { apiValidationMessages } from "@/lib/messages";
+
+const FIELD = {
+  artist_name: "歌手名",
+  tune_name: "曲名",
+};
 
 export const schema = yup
   .object()
@@ -8,13 +13,21 @@ export const schema = yup
     artist_name: yup
       .string()
       .max(200, function () {
-        return validationMessages.maxLength("歌手名", this.path, 200);
+        return apiValidationMessages.maxLength(
+          FIELD[this.path],
+          this.path,
+          200
+        );
       })
       .notRequired(),
     tune_name: yup
       .string()
       .max(200, function () {
-        return validationMessages.maxLength("曲名", this.path, 200);
+        return apiValidationMessages.maxLength(
+          FIELD[this.path],
+          this.path,
+          200
+        );
       })
       .notRequired(),
   })

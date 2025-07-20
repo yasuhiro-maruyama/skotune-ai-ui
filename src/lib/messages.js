@@ -20,10 +20,16 @@ export const apiValidationMessages = {
     `${logical_name}(${field_name})：必須チェック`,
   length: (logical_name, field_name, len) =>
     `${logical_name}(${field_name})：桁数チェック(${len}桁のみ)`,
+  minLength: (logical_name, field_name, len) =>
+    `${logical_name}(${field_name})：最小桁数チェック(${len}桁以上)`,
   maxLength: (logical_name, field_name, len) =>
     `${logical_name}(${field_name})：最大桁数チェック(${len}桁まで)`,
   alphaNumeric: (logical_name, field_name) =>
     `${logical_name}(${field_name})：半角英数チェック`,
+  email: (logical_name, field_name) =>
+    `${logical_name}(${field_name})：メールアドレスチェック`,
+  password: (logical_name, field_name) =>
+    `${logical_name}(${field_name})：パスワードチェック`,
 };
 
 // バリデーションエラーUI用メッセージ
@@ -33,5 +39,6 @@ export const uiValidationMessages = {
   minLength: (logical_name, len) => `${logical_name}は${len}桁以上です。`,
   maxLength: (logical_name, len) => `${logical_name}は最大${len}桁までです。`,
   alphaNumeric: (logical_name) => `${logical_name}は半角英数文字のみ有効です。`,
-  password: () => `パスワードは英字・数字・記号を1文字以上含めてください。`,
+  email: () => "正しいメールアドレスを入力してください。",
+  password: () => "パスワードは英字・数字・記号を1文字以上含めてください。",
 };

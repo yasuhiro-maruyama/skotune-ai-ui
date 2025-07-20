@@ -4,13 +4,13 @@ import { NextResponse } from "next/server";
 import { randomUUID } from "crypto";
 import jwt from "jsonwebtoken";
 import redis from "@/lib/redis";
-import { schema } from "@/validators/auth/B001001Schema";
-import { validateRequest } from "@/utils/apiUtils";
 import { HTTP_STATUS } from "@/lib/apiConstants";
-import { a001001Model } from "@/app/model/api/auth/A001001Model";
 import { authErrorResponse } from "@/lib/response";
+import { validateRequest } from "@/utils/apiUtils";
+import { schema } from "@/validators/auth/B001001Schema";
+import { a001001Model } from "@/app/model/api/auth/A001001Model";
 
-const SESSION_TIME = 60 * 60; // ログインの有効時間(1時間)
+const SESSION_TIME = 60 * 60 * 24; // ログインの有効時間(24時間)
 
 export async function POST(req) {
   // バリデーションチェック
@@ -30,9 +30,13 @@ export async function POST(req) {
   });
 
   // Redisに保存
-  await redis.set(sessionId, JSON.stringify(result.response_info), {
-    ex: SESSION_TIME,
-  });
+  await redis.set(
+    `auth_token:${sessionId}`,
+    JSON.stringify(result.response_info),
+    {
+      ex: SESSION_TIME,
+    }
+  );
 
   const response = NextResponse.json(result, {
     status: HTTP_STATUS.OK,

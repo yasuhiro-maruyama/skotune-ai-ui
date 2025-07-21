@@ -1,5 +1,6 @@
 name: BAT000001_BFF定期実行バッチ
 on:
+  push:
   schedule:
     - cron: "*/1 * * * *"
   workflow_dispatch:

@@ -1,0 +1,12 @@
+name: BAT000001_BFF定期実行バッチ
+on:
+  schedule:
+    - cron: "*/10 * * * *"
+jobs:
+  call-api:
+    runs-on: ubuntu-latest
+    steps:
+      - name: B000001_ヘルスチェックBFF
+        run: |
+          curl -X GET "https://skotune-ai-ui.onrender.com/api/health" \
+               -H "Content-Type: application/json"

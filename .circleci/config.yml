@@ -1,0 +1,24 @@
+version: 2.1
+
+jobs:
+  call_api:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - run:
+          name: B000001_ヘルスチェックBFF
+          command: |
+            curl -X GET "https://skotune-ai-ui.onrender.com/api/health" -H "Content-Type: application/json"
+
+workflows:
+  version: 2
+  scheduled_workflow:
+    triggers:
+      - schedule:
+          cron: "*/10 * * * *"
+          filters:
+            branches:
+              only:
+                - main
+    jobs:
+      - call_api

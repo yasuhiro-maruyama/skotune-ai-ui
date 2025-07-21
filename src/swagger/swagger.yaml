@@ -3,9 +3,16 @@ info:
   title: skotune-ai Next.js API Route
   version: 1.0.0
 paths:
+  /api/common/health:
+    get:
+      summary: B000001_ヘルスチェックBFF
+      description: BFFサーバーが正常に稼働しているか確認
+      responses:
+        "200":
+          description: 成功時のレスポンス
   /api/auth/login:
     post:
-      summary: ログイン照会BFF
+      summary: B001001_ログイン照会BFF
       description: リクエストに合致したユーザ情報を返却
       requestBody:
         required: true

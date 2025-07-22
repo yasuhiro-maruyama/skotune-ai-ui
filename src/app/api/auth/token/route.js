@@ -3,7 +3,7 @@
 import { cookies } from "next/headers";
 import jwt from "jsonwebtoken";
 import redis from "@/lib/redis";
-import { a001002Model } from "@/app/model/api/auth/A001002Model";
+import { a000004Model } from "@/app/model/api/common/A000004Model";
 import {
   successResponse,
   internalServerErrorResponse,
@@ -26,13 +26,13 @@ export async function POST() {
   if (!payload || !payload.sessionId) return authErrorResponse();
 
   // Redisからユーザー情報を取得
-  const userInfo = await redis.get(sessionId);
+  const userInfo = await redis.get(`auth_token:${sessionId}`);
 
   // ユーザー情報が取得できない場合、認証エラー
   if (!userInfo) return authErrorResponse();
 
   // メニュー機能取得API実行
-  const result = await a001002Model({
+  const result = await a000004Model({
     administrator_flg: userInfo.administrator_flg,
   });
 

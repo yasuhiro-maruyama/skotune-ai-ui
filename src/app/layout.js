@@ -13,6 +13,7 @@ export default function RootLayout({ children }) {
   const pathname = usePathname();
   const isMobile = useMediaQuery("(max-width: 768px)");
   const [loadingCompleted, setLoadingCompleted] = useState(false);
+  const menu = menuModel((state) => state.menu);
 
   useEffect(() => {
     const authUnnecessary = ["/docs", "/auth/login", "/auth/user"];
@@ -34,12 +35,22 @@ export default function RootLayout({ children }) {
         return;
       }
 
+      // メニュー情報取得
+      const menuInfo = result.response_info.menu_info;
       // ユーザー情報再保存
       userModel.getState().setUser(result.response_info.user_info);
       // メニュー情報設定
-      menuModel.getState().setMenu(result.response_info.menu_info);
-      // ホーム画面に遷移
-      isMobile ? router.push("/home/mobile") : router.push("/home");
+      menuModel.getState().setMenu(menuInfo);
+      // 全てのメニュー機能の内容を取得
+      const validPaths = menuInfo.map((item) => "/skotune" + item.content);
+
+      // メニューに含まれていない遷移先の場合
+      if (!validPaths.includes(pathname)) {
+        // ホーム画面に遷移
+        isMobile
+          ? router.push("/skotune/home/mobile")
+          : router.push("/skotune/home");
+      }
       // ローディング完了
       setLoadingCompleted(true);
       return;

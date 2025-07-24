@@ -44,58 +44,54 @@ export default function RootLayout({ children }) {
 
   // PC版レイアウト
   return (
-    <html lang="ja">
-      <body>
-        <div className="w-full h-screen relative overflow-hidden bg-white">
-          {/* サイドメニュー */}
-          <div className="w-64 h-full absolute left-0 top-0 overflow-hidden bg-white border-r border-[#e0e0e0]">
-            <p className="absolute left-6 top-6 text-xl font-semibold text-left text-black">
-              SkoTune AI
-            </p>
-            {menu?.length > 0 && (
-              <div className="flex flex-col justify-start items-start w-60 absolute left-2 top-[78px] gap-1">
-                {menu.map((tab, index) => {
-                  const targetPath = `/skotune${tab.content}`;
-                  const isActive = pathname === targetPath;
-                  return (
-                    <button
-                      key={index}
-                      onClick={() => {
-                        if (!isActive) router.push(targetPath);
-                      }}
-                      className={`flex items-center gap-2 px-4 py-2 rounded-lg ${
-                        isActive
-                          ? "bg-gray-200 text-black"
-                          : "text-gray-500 hover:bg-gray-100"
-                      }`}
-                    >
-                      <div dangerouslySetInnerHTML={{ __html: tab.icon }} />
-                      <span className="text-base font-medium">{tab.label}</span>
-                    </button>
-                  );
-                })}
-              </div>
-            )}
+    <div className="w-full h-screen relative bg-white">
+      {/* サイドメニュー */}
+      <div className="w-64 h-full absolute left-0 top-0 overflow-hidden bg-white border-r border-[#e0e0e0]">
+        <p className="absolute left-6 top-6 text-xl font-semibold text-left text-black">
+          SkoTune AI
+        </p>
+        {menu?.length > 0 && (
+          <div className="flex flex-col justify-start items-start w-60 absolute left-2 top-[78px] gap-1">
+            {menu.map((tab, index) => {
+              const targetPath = `/skotune${tab.content}`;
+              const isActive = pathname === targetPath;
+              return (
+                <button
+                  key={index}
+                  onClick={() => {
+                    if (!isActive) router.push(targetPath);
+                  }}
+                  className={`flex items-center gap-2 px-4 py-2 rounded-lg ${
+                    isActive
+                      ? "bg-gray-200 text-black"
+                      : "text-gray-500 hover:bg-gray-100"
+                  }`}
+                >
+                  <div dangerouslySetInnerHTML={{ __html: tab.icon }} />
+                  <span className="text-base font-medium">{tab.label}</span>
+                </button>
+              );
+            })}
           </div>
+        )}
+      </div>
 
-          {/* コンテンツ部分 */}
-          <div className="absolute left-[300px] top-[80px] right-4">
-            <div className="tab-content mt-4">{children}</div>
-          </div>
+      {/* コンテンツ部分 */}
+      <div className="absolute left-[300px] top-[80px] right-4">
+        <div className="tab-content mt-4">{children}</div>
+      </div>
 
-          {/* 上部バー */}
-          <div className="w-[1504px] h-10 absolute left-[336px] top-6">
-            <div className="flex justify-center items-center h-10 absolute left-[1371px] top-0 gap-2 px-4 rounded-lg bg-black">
-              <button
-                type="submit"
-                className="text-base font-medium text-left text-white"
-              >
-                ログアウト
-              </button>
-            </div>
-          </div>
+      {/* 上部バー */}
+      <div className="w-[1504px] h-10 absolute left-[336px] top-6">
+        <div className="flex justify-center items-center h-10 absolute left-[1371px] top-0 gap-2 px-4 rounded-lg bg-black">
+          <button
+            type="submit"
+            className="text-base font-medium text-left text-white"
+          >
+            ログアウト
+          </button>
         </div>
-      </body>
-    </html>
+      </div>
+    </div>
   );
 }

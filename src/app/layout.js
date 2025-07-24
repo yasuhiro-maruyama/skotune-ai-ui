@@ -60,7 +60,7 @@ export default function RootLayout({ children }) {
   }, [router, isMobile, pathname]);
 
   return (
-    <html lang="en">
+    <html lang="ja">
       <body>
         {loadingCompleted ? (
           <>

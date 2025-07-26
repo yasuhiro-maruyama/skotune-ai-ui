@@ -48,81 +48,57 @@ export default function Page() {
   };
 
   return (
-    <main className="flex items-center justify-center min-h-screen bg-gradient-to-br from-blue-100 via-white to-pink-100">
-      <div className="w-full max-w-sm p-8 bg-white rounded-2xl shadow-xl">
-        <h1 className="text-2xl font-bold text-center mb-6 text-gray-700">
-          SkoTune AI ログイン
-        </h1>
-        <form className="space-y-5" onSubmit={handleSubmit(loginButton)}>
+    <main className="center-all">
+      <div className="center-item">
+        <h1>SkoTune AI ログイン</h1>
+        <form onSubmit={handleSubmit(loginButton)}>
           <div>
-            <label
-              htmlFor="user_id"
-              className="block text-sm font-medium text-gray-600"
-            >
-              メールアドレス
-            </label>
+            <label htmlFor="user_id">メールアドレス</label>
             <input
               id="user_id"
               type={UI_TYPE.E_MAIL}
               maxLength={200}
-              className="w-full px-4 py-2 mt-1 border rounded-md focus:outline-none focus:ring-2 border-gray-300 focus:ring-blue-400"
               placeholder="you@example.com"
               {...register("user_id")}
             />
             {errors.user_id && (
-              <p className="text-red-500 text-sm mt-1">
-                {errors.user_id.message}
-              </p>
+              <p className="error-msg">{errors.user_id.message}</p>
             )}
           </div>
           <div>
-            <label
-              htmlFor="password"
-              className="block text-sm font-medium text-gray-600"
-            >
-              パスワード
-            </label>
+            <label htmlFor="password">パスワード</label>
             <div className="relative">
               <input
                 id="password"
                 type={showPassword ? UI_TYPE.TEXT : UI_TYPE.PASSWORD}
                 minLength={8}
                 maxLength={32}
-                className="w-full px-4 py-2 mt-1 border rounded-md focus:outline-none focus:ring-2 border-gray-300 focus:ring-blue-400"
                 placeholder="********"
                 {...register("password")}
               />
               <button
                 type={UI_TYPE.BUTTON}
-                className="absolute inset-y-0 right-0 flex items-center px-3 text-gray-500 hover:text-gray-700"
+                className={`password-btn ${
+                  !passwordValue && "cursor-not-allowed"
+                }`}
                 onClick={() => setShowPassword(!showPassword)}
                 tabIndex={-1}
                 disabled={!passwordValue}
               >
-                {showPassword ? <Eye size={20} /> : <EyeOff size={20} />}
+                {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
               </button>
             </div>
             {errors.password && (
-              <p className="text-red-500 text-sm mt-1">
-                {errors.password.message}
-              </p>
+              <p className="error-msg">{errors.password.message}</p>
             )}
           </div>
-          <button
-            type={UI_TYPE.SUBMIT}
-            className="w-full py-2 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-md transition duration-200"
-          >
+          <button type={UI_TYPE.SUBMIT} className="center-item-btn">
             ログイン
           </button>
         </form>
-        <p className="mt-4 text-sm text-center text-gray-500">
+        <p className="center-item-sentence">
           アカウントをお持ちでない方は{" "}
-          <Link
-            href="/auth/user"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-blue-500 hover:underline"
-          >
+          <Link href="/auth/user" target="_blank" rel="noopener noreferrer">
             登録
           </Link>
         </p>

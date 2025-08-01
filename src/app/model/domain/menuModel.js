@@ -3,7 +3,7 @@
 import { create } from "zustand";
 
 const menuModel = create((set) => ({
-  menu: null,
+  menu: [],
   setMenu: (menu) => set({ menu }),
 }));
 

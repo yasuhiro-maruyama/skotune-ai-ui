@@ -2,58 +2,71 @@
 
 import React from "react";
 
-export default function Pagination({ currentPage, totalPages, onPageChange }) {
-  // 🔽 最大5ページ表示用ロジック
-  const getPageNumbers = () => {
-    const pages = [];
-    let start = Math.max(1, currentPage - 2);
-    let end = Math.min(totalPages, start + 4);
+export default function Component({ currentPage, totalPages, onPageChange }) {
+  const getVisiblePages = () => {
+    const delta = 2; // 前後に表示するページ数
+    const range = [];
 
-    if (end - start < 4) {
-      start = Math.max(1, end - 4);
+    let start = Math.max(1, currentPage - delta);
+    let end = Math.min(totalPages, currentPage + delta);
+
+    if (end - start < delta * 2) {
+      if (start === 1) {
+        end = Math.min(totalPages, start + delta * 2);
+      }
+      if (end === totalPages) {
+        start = Math.max(1, end - delta * 2);
+      }
     }
 
     for (let i = start; i <= end; i++) {
-      pages.push(i);
+      range.push(i);
     }
 
-    return pages;
+    return range;
   };
 
-  const pageNumbers = getPageNumbers(); // 🔁 差し替え
-
   return (
-    <div className="flex items-center justify-center gap-2 mt-4">
+    <div className="flex justify-center gap-2 my-4">
+      {/* 前へ */}
       <button
+        className={`px-3 py-1 rounded border text-sm font-medium ${
+          currentPage === 1
+            ? "text-gray-400 border-gray-200 cursor-not-allowed"
+            : "text-gray-700 border-gray-300 hover:bg-red-50"
+        }`}
         onClick={() => onPageChange(currentPage - 1)}
         disabled={currentPage === 1}
-        className="px-3 py-1 rounded bg-blue-500 text-white hover:bg-blue-600 disabled:bg-gray-300 disabled:text-gray-500 disabled:cursor-not-allowed"
       >
-        前へ
+        &lt;
       </button>
 
-      {pageNumbers.map((page) => (
+      {/* ページ番号 */}
+      {getVisiblePages().map((page) => (
         <button
           key={page}
+          className={`px-3 py-1 rounded border text-sm font-medium ${
+            page === currentPage
+              ? "bg-red-500 text-white border-red-500"
+              : "text-gray-700 border-gray-300 hover:bg-red-50"
+          }`}
           onClick={() => onPageChange(page)}
-          className={`px-3 py-1 rounded border 
-            ${
-              page === currentPage
-                ? "bg-blue-600 text-white"
-                : "bg-white text-gray-700 hover:bg-blue-100"
-            }
-          `}
         >
           {page}
         </button>
       ))}
 
+      {/* 次へ */}
       <button
+        className={`px-3 py-1 rounded border text-sm font-medium ${
+          currentPage === totalPages
+            ? "text-gray-400 border-gray-200 cursor-not-allowed"
+            : "text-gray-700 border-gray-300 hover:bg-red-50"
+        }`}
         onClick={() => onPageChange(currentPage + 1)}
         disabled={currentPage === totalPages}
-        className="px-3 py-1 rounded bg-blue-500 text-white hover:bg-blue-600 disabled:bg-gray-300 disabled:text-gray-500 disabled:cursor-not-allowed"
       >
-        次へ
+        &gt;
       </button>
     </div>
   );

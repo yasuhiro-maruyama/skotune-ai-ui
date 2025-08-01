@@ -11,9 +11,24 @@ export const ACTION_TYPE = {
 
 export const UI_TYPE = {
   TEXT: "text",
+  NUMBER: "number",
+  DATE: "date",
   E_MAIL: "email",
   PASSWORD: "password",
-  TEXT: "text",
   BUTTON: "button",
   SUBMIT: "submit",
+};
+
+// テーブルのオプション
+export const TABLE_OPTION = {
+  STR: "str",
+  NUMBER: "number",
+  DATE: "date",
+  INPUT: "input",
+  SELECT: "select",
+  COMMA: "comma",
+  BUTTON: "button",
+  IMAGE: "image",
+  LINK: "link",
+  HIDDEN: "hidden",
 };

@@ -14,9 +14,64 @@
   @apply w-full max-w-sm p-8 bg-white rounded-2xl shadow-2xl;
 }
 
+/* ヘッダー */
+header {
+  @apply flex justify-end items-center h-15 px-3 border-b border-gray-300 bg-gray-50;
+}
+
+/* 各ページ */
+.page-item {
+  @apply flex-grow overflow-y-auto;
+}
+
+/* 各ページ全体 */
+.page-item-all {
+  @apply max-w-screen-2xl mx-auto;
+}
+
+/* 各ページのメインコンテンツ */
+.page-item main {
+  @apply min-h-screen bg-gray-200 py-5;
+}
+
 /* 中央配置のタイトル */
 .center-item h1 {
   @apply text-2xl font-bold text-center mb-5;
+}
+
+/* 各ページのタイトル */
+.page-item h1 {
+  @apply text-3xl font-bold mb-5;
+}
+
+/* 各ページのタイトル */
+.page-item h2 {
+  @apply text-2xl font-bold mt-5 mb-1;
+}
+
+/* 各ページのタブ(選択状態) */
+.page-item-tub-select {
+  @apply px-4 py-2 rounded-md font-semibold border-b-2 border-red-500 text-red-600;
+}
+
+/* 各ページのタブ(非選択状態) */
+.page-item-tub-not-select {
+  @apply px-4 py-2 rounded-md font-semibold border-b-2 border-transparent text-gray-500 hover:text-red-400;
+}
+
+/* メニュー */
+.menu-item-aside {
+  @apply w-65 p-5 border-r border-gray-300 bg-gray-50;
+}
+
+/* メニューのタイトル */
+.menu-item-h1 {
+  @apply text-2xl font-bold text-center mb-5;
+}
+
+/* メニューのタブ */
+.menu-item-tab {
+  @apply flex flex-col space-y-1;
 }
 
 /* 中央配置のフォーム */
@@ -24,14 +79,84 @@
   @apply space-y-5;
 }
 
+/* 各ページのフォーム */
+.page-item-form {
+  @apply bg-white p-8 rounded-xl shadow-md;
+}
+
+/* 各ページのテーブル要素 */
+.page-item-table {
+  @apply overflow-x-auto bg-white rounded-xl shadow-md;
+}
+
+/* 各ページのテーブル */
+.page-item-table table {
+  @apply min-w-full divide-y divide-gray-300;
+}
+
+/* 各ページのテーブル(thead) */
+.page-item-table thead {
+  @apply bg-gray-100;
+}
+
+/* 各ページのテーブル(th) */
+.page-item-table th {
+  @apply px-5 py-3 text-left text-sm font-semibold;
+}
+
+/* 各ページのテーブル(tbody) */
+.page-item-table tbody {
+  @apply divide-y divide-gray-200;
+}
+
+/* 各ページのテーブル(tr) */
+.page-item-table-tbody-tr {
+  @apply hover:bg-red-50;
+}
+
+/* 各ページのテーブル(td) */
+.page-item-table td {
+  @apply px-6 py-4;
+}
+
+/* データなし */
+.no-data {
+  @apply text-center text-gray-400 italic;
+}
+
+/* 画像ファイルなし */
+.no-image {
+  @apply text-gray-400 text-sm;
+}
+
+/* 各ページの要素 */
+.page-item-element {
+  @apply flex flex-wrap gap-6 items-end;
+}
+
+/* 各ページの項目 */
+.page-item-element-div {
+  @apply flex flex-col w-65;
+}
+
 /* 中央配置のラベル */
 .center-item label {
   @apply block text-sm font-medium text-gray-800;
 }
 
-/* 中央配置の入力項目 */
-.center-item input {
-  @apply w-full px-3 py-2 mt-1 border rounded-md focus:outline-none focus:ring-2 border-gray-400 focus:ring-red-400;
+/* 各ページのラベル */
+.page-item label {
+  @apply text-sm font-medium text-gray-700;
+}
+
+/* 入力項目 */
+input {
+  @apply w-full px-3 py-1 mt-1 border rounded-md focus:outline-none focus:ring-2 border-gray-400 focus:ring-red-400;
+}
+
+/* 入力項目 */
+select {
+  @apply px-3 py-1 mt-1 border rounded-md border-gray-400;
 }
 
 /* 中央配置の文章 */
@@ -39,9 +164,29 @@
   @apply mt-4 text-sm text-center text-gray-800;
 }
 
+/* 注釈メッセージ */
+.annotation-msg {
+  @apply text-sm mb-1 text-red-600;
+}
+
 /* 中央配置のボタン */
 .center-item-btn {
   @apply w-full py-2 rounded-md font-semibold bg-red-600 hover:bg-red-300 text-white duration-200;
+}
+
+/* メニューのボタン(選択状態) */
+.menu-item-btn-select {
+  @apply flex items-center gap-3 px-3 py-1 rounded-md duration-200 bg-red-100 text-red-600 font-semibold;
+}
+
+/* メニューのボタン(非選択状態) */
+.menu-item-btn-not-select {
+  @apply flex items-center gap-3 px-3 py-1 rounded-md duration-200 text-gray-700 hover:bg-red-100 hover:text-red-600;
+}
+
+/* 通常ボタン */
+.btn {
+  @apply px-3 py-1 rounded-md font-semibold bg-red-600 hover:bg-red-300 text-white duration-200;
 }
 
 /* パスワードのボタン */
@@ -49,12 +194,12 @@
   @apply absolute inset-y-0 right-0 flex items-center px-3 text-gray-500 hover:text-gray-700;
 }
 
-/* エラーメッセージ */
-.error-msg {
-  @apply text-red-500 text-sm mt-1;
+/* リンク */
+a {
+  @apply text-blue-500 hover:underline font-medium;
 }
 
 /* エラーメッセージ */
-a {
-  @apply text-blue-500 hover:underline;
+.error-msg {
+  @apply text-red-500 text-sm mt-1;
 }

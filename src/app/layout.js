@@ -13,7 +13,6 @@ export default function RootLayout({ children }) {
   const pathname = usePathname();
   const isMobile = useMediaQuery("(max-width: 768px)");
   const [loadingCompleted, setLoadingCompleted] = useState(false);
-  const menu = menuModel((state) => state.menu);
 
   useEffect(() => {
     const authUnnecessary = ["/docs", "/auth/login", "/auth/user"];

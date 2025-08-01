@@ -12,10 +12,12 @@ export const UI_MSG = {
     "ログイン情報が正しくありません。メールアドレスまたはパスワードが正しいかご確認お願いします。",
   maintenanceError:
     "システムメンテナンス中のため、アクセスすることができません。",
+  masterError: "マスタ不備のため、表示できません。",
   searchError:
     "検索機能に異常が発生いたしました。時間をおいて確認してください。",
   searchSuccess: "楽曲の取得が正常に完了しました。",
   searchNoData: "検索結果がありません。",
+  searchReservation: "予約情報を登録しました。",
 };
 
 // バリデーションエラーAPI用メッセージ
@@ -28,6 +30,10 @@ export const apiValidationMessages = {
     `${logical_name}(${field_name})：最小桁数チェック(${len}桁以上)`,
   maxLength: (logical_name, field_name, len) =>
     `${logical_name}(${field_name})：最大桁数チェック(${len}桁まで)`,
+  maxNumber: (logical_name, field_name, len) =>
+    `${logical_name}(${field_name})：最大値チェック(${len}以下まで)`,
+  maxDate: (logical_name, field_name) =>
+    `${logical_name}(${field_name})：未来日チェック`,
   alphaNumeric: (logical_name, field_name) =>
     `${logical_name}(${field_name})：半角英数チェック`,
   email: (logical_name, field_name) =>
@@ -42,6 +48,8 @@ export const uiValidationMessages = {
   length: (logical_name, len) => `${logical_name}は${len}桁のみ有効です。`,
   minLength: (logical_name, len) => `${logical_name}は${len}桁以上です。`,
   maxLength: (logical_name, len) => `${logical_name}は最大${len}桁までです。`,
+  maxNumber: (logical_name, len) =>
+    `${logical_name}は${len}以下の数値まで有効です。`,
   alphaNumeric: (logical_name) => `${logical_name}は半角英数文字のみ有効です。`,
   email: () => "正しいメールアドレスを入力してください。",
   password: () => "パスワードは英字・数字・記号を1文字以上含めてください。",

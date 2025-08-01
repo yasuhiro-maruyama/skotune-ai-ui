@@ -10,6 +10,24 @@ paths:
       responses:
         "200":
           description: 成功時のレスポンス
+  /api/common/code:
+    post:
+      summary: B000003_コード値取得BFF
+      description: リクエストに一致したコード情報を取得するBFF
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                code_id:
+                  type: string
+      responses:
+        "200":
+          description: 成功時のレスポンス
+        "422":
+          description: バリデーションエラー
   /api/auth/login:
     post:
       summary: B001001_ログイン照会BFF

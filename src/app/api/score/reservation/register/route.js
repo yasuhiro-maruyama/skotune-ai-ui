@@ -1,7 +1,7 @@
 // B004002_楽曲予約登録BFF
 "use server";
 import redis from "@/lib/redis";
-import { schema } from "@/validators/score/B004002Schema";
+import { schema } from "@/schema/score/bff/B004002Schema";
 import { validateRequest } from "@/utils/apiUtils";
 import { successResponse } from "@/lib/response";
 

@@ -1,8 +1,8 @@
 // B000003_コード値取得BFF
 "use server";
-import { schema } from "@/validators/common/B000003Schema";
+import { schema } from "@/schema/common/bff/B000003Schema";
 import { validateRequest } from "@/utils/apiUtils";
-import { a000005Model } from "@/app/model/api/common/A000005Model";
+import { a000005Model } from "@/domain/common/api/A000005Model";
 import { successResponse, internalServerErrorResponse } from "@/lib/response";
 
 export async function POST(req) {

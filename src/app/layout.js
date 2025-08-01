@@ -4,9 +4,9 @@ import { useState, useEffect } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import { Toaster } from "sonner";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
-import userModel from "@/app/model/domain/userModel";
-import menuModel from "@/app/model/domain/menuModel";
-import { b001002Model } from "@/app/model/bff/auth/B001002Model";
+import userModel from "@/domain/common/store/userModel";
+import menuModel from "@/domain/common/store/menuModel";
+import { b001002Model } from "@/domain/auth/bff/B001002Model";
 
 export default function RootLayout({ children }) {
   const router = useRouter();

@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import menuModel from "@/app/model/domain/menuModel";
+import menuModel from "@/domain/common/store/menuModel";
 
 // ホーム画面
 export default function Page() {

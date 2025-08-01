@@ -6,8 +6,8 @@ import { toast } from "sonner";
 import { RESPONSE_CODE } from "@/lib/apiConstants";
 import { UI_TYPE } from "@/lib/uiConstants";
 import { UI_MSG } from "@/lib/messages";
-import { b003001Model } from "@/app/model/bff/search/B003001Model";
-import { schema_search } from "@/validators/score/U004001Schema";
+import { b003001Model } from "@/domain/search/bff/B003001Model";
+import { schema_search } from "@/schema/score/ui/U004001Schema";
 
 export default function Component({ onSearch }) {
   // バリデーション用

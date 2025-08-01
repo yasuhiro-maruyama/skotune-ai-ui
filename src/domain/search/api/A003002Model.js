@@ -1,6 +1,6 @@
 // A003002_楽曲取得API Model
 "use server";
-import apiClient from "@/app/model/api/APIModel";
+import apiClient from "@/lib/APIModel";
 import logger from "@/lib/logger";
 
 const ifName = "A003002_楽曲取得API";

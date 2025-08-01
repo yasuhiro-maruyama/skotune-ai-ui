@@ -1,6 +1,6 @@
 // A000005_コード値取得API Model
 "use server";
-import apiClient from "@/app/model/api/APIModel";
+import apiClient from "@/lib/APIModel";
 import logger from "@/lib/logger";
 
 const ifName = "A000005_コード値取得API";

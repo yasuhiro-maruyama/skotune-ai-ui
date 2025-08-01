@@ -7,8 +7,8 @@ import redis from "@/lib/redis";
 import { HTTP_STATUS } from "@/lib/apiConstants";
 import { authErrorResponse } from "@/lib/response";
 import { validateRequest } from "@/utils/apiUtils";
-import { schema } from "@/validators/auth/B001001Schema";
-import { a001001Model } from "@/app/model/api/auth/A001001Model";
+import { schema } from "@/schema/auth/bff/B001001Schema";
+import { a001001Model } from "@/domain/auth/api/A001001Model";
 
 const SESSION_TIME = 60 * 60 * 24; // ログインの有効時間(24時間)
 

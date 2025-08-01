@@ -3,7 +3,7 @@
 import { cookies } from "next/headers";
 import jwt from "jsonwebtoken";
 import redis from "@/lib/redis";
-import { a000004Model } from "@/app/model/api/common/A000004Model";
+import { a000004Model } from "@/domain/common/api/A000004Model";
 import {
   successResponse,
   internalServerErrorResponse,

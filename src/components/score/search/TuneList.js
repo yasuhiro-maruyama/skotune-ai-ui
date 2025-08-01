@@ -9,9 +9,9 @@ import { UI_TYPE } from "@/lib/uiConstants";
 import { TABLE_OPTION } from "@/lib/uiConstants";
 import Table from "@/components/Table";
 import Pagination from "@/components/Pagination";
-import userModel from "@/app/model/domain/userModel";
-import scoreModel from "@/app/model/domain/scoreModel";
-import { b004002Model } from "@/app/model/bff/score/B004002Model";
+import userModel from "@/domain/common/store/userModel";
+import scoreModel from "@/domain/score/store/scoreModel";
+import { b004002Model } from "@/domain/score/bff/B004002Model";
 
 export default function Component({ data, searchCount }) {
   // バリデーション用(なし)

@@ -1,6 +1,6 @@
 // B001001_ログイン照会BFF Model
 "use client";
-import bffClient from "@/app/model/bff/BFFModel";
+import bffClient from "@/lib/BFFModel";
 
 const ifName = "B001001_ログイン照会BFF";
 

@@ -1,6 +1,6 @@
 // B004002_楽曲予約登録BFF Model
 "use client";
-import bffClient from "@/app/model/bff/BFFModel";
+import bffClient from "@/lib/BFFModel";
 
 const ifName = "B004002_楽曲予約登録BFF";
 

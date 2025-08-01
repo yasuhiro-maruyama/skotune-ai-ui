@@ -1,6 +1,6 @@
 // A000004_メニュー機能取得API Model
 "use server";
-import apiClient from "@/app/model/api/APIModel";
+import apiClient from "@/lib/APIModel";
 import logger from "@/lib/logger";
 
 const ifName = "A000004_メニュー機能取得API";

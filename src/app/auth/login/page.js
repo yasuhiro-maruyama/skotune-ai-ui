@@ -8,9 +8,9 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { UI_TYPE } from "@/lib/uiConstants";
 import { UI_MSG } from "@/lib/messages";
-import userModel from "@/app/model/domain/userModel";
-import { b001001Model } from "@/app/model/bff/auth/B001001Model";
-import { schema } from "@/validators/auth/U001001Schema";
+import userModel from "@/domain/common/store/userModel";
+import { b001001Model } from "@/domain/auth/bff/B001001Model";
+import { schema } from "@/schema/auth/ui/U001001Schema";
 
 // ログイン画面
 export default function Page() {

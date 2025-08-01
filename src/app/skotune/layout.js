@@ -1,8 +1,8 @@
 "use client";
 import { useRouter, usePathname } from "next/navigation";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
-import userModel from "@/app/model/domain/userModel";
-import menuModel from "@/app/model/domain/menuModel";
+import userModel from "@/domain/common/store/userModel";
+import menuModel from "@/domain/common/store/menuModel";
 
 export default function RootLayout({ children }) {
   const router = useRouter();

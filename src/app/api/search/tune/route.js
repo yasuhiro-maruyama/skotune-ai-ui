@@ -1,9 +1,9 @@
 // B003001_楽曲検索BFF
 "use server";
-import { schema } from "@/validators/search/B003001Schema";
+import { schema } from "@/schema/search/bff/B003001Schema";
 import { validateRequest } from "@/utils/apiUtils";
-import { a003001Model } from "@/app/model/api/search/A003001Model";
-import { a003002Model } from "@/app/model/api/search/A003002Model";
+import { a003001Model } from "@/domain/search/api/A003001Model";
+import { a003002Model } from "@/domain/search/api/A003002Model";
 import { successResponse, internalServerErrorResponse } from "@/lib/response";
 
 export async function POST(req) {

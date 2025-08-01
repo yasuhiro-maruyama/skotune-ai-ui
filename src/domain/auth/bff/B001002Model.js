@@ -1,6 +1,6 @@
 // B001002_トークン取得BFF Model
 "use client";
-import bffClient from "@/app/model/bff/BFFModel";
+import bffClient from "@/lib/BFFModel";
 
 const ifName = "B001002_トークン取得BFF";
 

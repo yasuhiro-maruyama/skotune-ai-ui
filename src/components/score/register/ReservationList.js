@@ -11,9 +11,9 @@ import { UI_TYPE } from "@/lib/uiConstants";
 import { TABLE_OPTION } from "@/lib/uiConstants";
 import Table from "@/components/Table";
 import Pagination from "@/components/Pagination";
-import scoreModel from "@/app/model/domain/scoreModel";
-import { b000003Model } from "@/app/model/bff/common/B000003Model";
-import { schema_score } from "@/validators/score/U004001Schema";
+import scoreModel from "@/domain/score/store/scoreModel";
+import { b000003Model } from "@/domain/common/bff/B000003Model";
+import { schema_score } from "@/schema/score/ui/U004001Schema";
 
 export default function Component({ data, searchCount }) {
   // バリデーション用

@@ -10,7 +10,7 @@ import { UI_TYPE } from "@/lib/uiConstants";
 import { TABLE_OPTION } from "@/lib/uiConstants";
 import Table from "@/components/Table";
 import Pagination from "@/components/Pagination";
-import { b003002Model } from "@/app/model/bff/search/B003002Model";
+import { b003002Model } from "@/domain/search/bff/B003002Model";
 
 export default function Component({ data, onAllTune, searchCount }) {
   // バリデーション用(なし)

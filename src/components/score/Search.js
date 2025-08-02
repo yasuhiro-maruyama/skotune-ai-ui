@@ -3,12 +3,14 @@ import { useState } from "react";
 import SearchTune from "@/components/score/search/SearchTune";
 import ArtistList from "@/components/score/search/ArtistList";
 import TuneList from "@/components/score/search/TuneList";
+import artistModel from "@/domain/score/store/search/artistModel";
+import tuneModel from "@/domain/score/store/search/tuneModel";
 
 export default function Component() {
   const [searchCount, setSearchCount] = useState(0);
   const [allTuneCount, setAllTuneCount] = useState(0);
-  const [artistList, setArtistList] = useState([]);
-  const [tuneList, setTuneList] = useState([]);
+  const artistInfo = artistModel((state) => state.model);
+  const tuneInfo = tuneModel((state) => state.model);
 
   // 検索結果更新
   const onSearch = (result) => {
@@ -16,8 +18,8 @@ export default function Component() {
     setSearchCount((prev) => prev + 1);
 
     // 歌手一覧・楽曲一覧に値を設定
-    setArtistList(result?.artist_info);
-    setTuneList(result?.tune_info);
+    artistModel.getState().setModel(result?.artist_info);
+    tuneModel.getState().setModel(result?.tune_info);
   };
 
   // 全楽曲取得結果更新
@@ -26,7 +28,7 @@ export default function Component() {
     setAllTuneCount((prev) => prev + 1);
 
     // 楽曲一覧に値を設定
-    setTuneList(result);
+    tuneModel.getState().setModel(result);
   };
 
   return (
@@ -35,12 +37,12 @@ export default function Component() {
       <SearchTune onSearch={onSearch} />
       <h2>歌手一覧</h2>
       <ArtistList
-        data={artistList}
+        data={artistInfo}
         onAllTune={onAllTune}
         searchCount={searchCount}
       />
       <h2>楽曲一覧</h2>
-      <TuneList data={tuneList} searchCount={searchCount + allTuneCount} />
+      <TuneList data={tuneInfo} searchCount={searchCount + allTuneCount} />
     </div>
   );
 }

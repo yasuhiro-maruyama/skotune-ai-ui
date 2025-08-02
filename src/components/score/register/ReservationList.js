@@ -11,7 +11,7 @@ import { UI_TYPE } from "@/lib/uiConstants";
 import { TABLE_OPTION } from "@/lib/uiConstants";
 import Table from "@/components/Table";
 import Pagination from "@/components/Pagination";
-import scoreModel from "@/domain/score/store/scoreModel";
+import scoreModel from "@/domain/score/store/score/scoreModel";
 import { b000003Model } from "@/domain/common/bff/B000003Model";
 import { schema_score } from "@/schema/score/ui/U004001Schema";
 

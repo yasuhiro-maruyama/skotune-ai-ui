@@ -10,7 +10,7 @@ import { TABLE_OPTION } from "@/lib/uiConstants";
 import Table from "@/components/Table";
 import Pagination from "@/components/Pagination";
 import userModel from "@/domain/common/store/userModel";
-import scoreModel from "@/domain/score/store/scoreModel";
+import scoreModel from "@/domain/score/store/score/scoreModel";
 import { b004002Model } from "@/domain/score/bff/B004002Model";
 
 export default function Component({ data, searchCount }) {

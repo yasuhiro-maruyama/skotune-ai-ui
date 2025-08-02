@@ -3,6 +3,7 @@ import * as yup from "yup";
 import { apiValidationMessages } from "@/lib/messages";
 
 const FIELD = {
+  user_id: { logical_name: "ユーザーID", field_name: "user_id" },
   artist_id: { logical_name: "歌手ID", field_name: "artist_id" },
   artist_name: { logical_name: "歌手名", field_name: "artist_name" },
   tune_id: { logical_name: "楽曲ID", field_name: "tune_id" },
@@ -12,6 +13,27 @@ const FIELD = {
   scoring_date: { logical_name: "採点日", field_name: "scoring_date" },
 };
 export const schema = yup.object().shape({
+  user_id: yup
+    .string()
+    .required(function () {
+      return apiValidationMessages.required(
+        FIELD.user_id.logical_name,
+        FIELD.user_id.field_name
+      );
+    })
+    .email(function () {
+      return apiValidationMessages.email(
+        FIELD.user_id.logical_name,
+        FIELD.user_id.field_name
+      );
+    })
+    .max(200, function () {
+      return apiValidationMessages.maxLength(
+        FIELD.user_id.logical_name,
+        FIELD.user_id.field_name,
+        200
+      );
+    }),
   artist_id: yup
     .string()
     .required(

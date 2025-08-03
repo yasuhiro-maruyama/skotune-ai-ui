@@ -2,8 +2,6 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect } from "react";
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
 import { useFormContext } from "react-hook-form";
 import { TABLE_OPTION } from "@/lib/uiConstants";
 import { UI_TYPE } from "@/lib/uiConstants";
@@ -75,27 +73,32 @@ export default function Component({ column, data, rowKey }) {
                             defaultValue={value}
                             {...register(name)}
                           />
-                          {errors[col.key] && (
+                          {errors?.table?.[index]?.[col.key]?.message && (
                             <p className="error-msg">
-                              {errors[col.key]?.message}
+                              {errors?.table?.[index]?.[col.key]?.message}
                             </p>
                           )}
                         </td>
                       );
                     }
 
+                    // 日付項目
                     if (col.input === TABLE_OPTION.DATE) {
                       return (
                         <td key={col.key}>
                           <input
                             id={col.key}
                             type={UI_TYPE.DATE}
-                            defaultValue={value ? value.slice(0, 10) : ""}
+                            defaultValue={
+                              value
+                                ? value.slice(0, 10)
+                                : new Date().toISOString().slice(0, 10)
+                            }
                             {...register(name)}
                           />
-                          {errors[col.key] && (
+                          {errors?.table?.[index]?.[col.key]?.message && (
                             <p className="error-msg">
-                              {errors[col.key]?.message}
+                              {errors?.table?.[index]?.[col.key]?.message}
                             </p>
                           )}
                         </td>
@@ -108,6 +111,7 @@ export default function Component({ column, data, rowKey }) {
                     return (
                       <td key={col.key}>
                         <select {...register(name)}>
+                          <option value="">選択してください</option>
                           {col.select?.map((item) => (
                             <option
                               key={item.code_value}
@@ -117,13 +121,18 @@ export default function Component({ column, data, rowKey }) {
                             </option>
                           ))}
                         </select>
+                        {errors?.table?.[index]?.[col.key]?.message && (
+                          <p className="error-msg">
+                            {errors?.table?.[index]?.[col.key]?.message}
+                          </p>
+                        )}
                       </td>
                     );
                   }
 
                   // ボタン
                   if (col.option === TABLE_OPTION.BUTTON) {
-                    return <td key={col.key}>{col.button(item)}</td>;
+                    return <td key={col.key}>{col.button(item, index)}</td>;
                   }
 
                   // 画像ファイル

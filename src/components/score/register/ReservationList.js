@@ -1,6 +1,4 @@
 "use client";
-import Link from "next/link";
-import Image from "next/image";
 import { useState, useEffect } from "react";
 import { toast } from "sonner";
 import { useForm } from "react-hook-form";
@@ -11,7 +9,7 @@ import { UI_TYPE } from "@/lib/uiConstants";
 import { TABLE_OPTION } from "@/lib/uiConstants";
 import Table from "@/components/Table";
 import Pagination from "@/components/Pagination";
-import scoreModel from "@/domain/score/store/score/scoreModel";
+import reservationModel from "@/domain/score/store/score/reservationModel";
 import { b000003Model } from "@/domain/common/bff/B000003Model";
 import { schema_score } from "@/schema/score/ui/U004001Schema";
 
@@ -26,13 +24,15 @@ export default function Component({ data, searchCount }) {
   const [loading, setLoading] = useState(false);
   const [isRegister, setRegister] = useState(false);
   const [modelTypeCode, setModelTypeCode] = useState([]);
-  const score = scoreModel((state) => state.score);
+  const reservationInfo = reservationModel((state) => state.model);
 
   const startIndex = (currentPage - 1) * perPage;
   const endIndex = startIndex + perPage;
-  const currentItem = score?.slice(startIndex, endIndex);
+  const currentItem = reservationInfo?.slice(startIndex, endIndex);
   const totalPages =
-    score && score.length > 0 ? Math.ceil(score.length / perPage) : 1;
+    reservationInfo && reservationInfo.length > 0
+      ? Math.ceil(reservationInfo.length / perPage)
+      : 1;
 
   const column = [
     { key: "artist_name", label: "歌手名", option: TABLE_OPTION.HIDDEN },
@@ -60,7 +60,7 @@ export default function Component({ data, searchCount }) {
       key: "button",
       label: "登録",
       option: TABLE_OPTION.BUTTON,
-      button: (item) => {
+      button: (item, index) => {
         const isLoading = loading === item.tune_id;
         const isDisabled = isLoading || isRegister;
         const label = isLoading
@@ -70,11 +70,21 @@ export default function Component({ data, searchCount }) {
           : "登録";
         return (
           <button
-            type={UI_TYPE.SUBMIT}
+            type={UI_TYPE.BUTTON}
             className={`btn ${isDisabled && "cursor-not-allowed"} ${
               isRegister && "!bg-gray-600"
             }`}
             disabled={isDisabled}
+            onClick={() => {
+              const fieldKeys = ["model_type", "score", "scoring_date"];
+              const targets = fieldKeys.map((key) => `table.${index}.${key}`);
+              form.trigger(targets).then((valid) => {
+                if (valid) {
+                  const values = form.getValues();
+                  register(values.table?.[index]);
+                }
+              });
+            }}
           >
             {label}
           </button>
@@ -107,12 +117,11 @@ export default function Component({ data, searchCount }) {
   }, [searchCount]);
 
   // 登録ボタン押下
-  const onSubmit = async (data) => {
+  const register = async (data) => {
     // ローディング開始
     setLoading(true);
 
-    console.log("通りました。");
-    console.log(data);
+    console.log("送信対象行：", data);
 
     // ローディング終了
     setLoading(false);
@@ -124,11 +133,7 @@ export default function Component({ data, searchCount }) {
         ※ 一時保存したデータは、1ヶ月以内に削除されます。
       </p>
       <FormProvider {...form}>
-        <form
-          onSubmit={form.handleSubmit(onSubmit, (errors) => {
-            console.log("バリデーションエラー:", errors);
-          })}
-        >
+        <form>
           <Table column={column} data={currentItem} rowKey="tune_id" />
         </form>
       </FormProvider>

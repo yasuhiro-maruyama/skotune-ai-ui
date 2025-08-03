@@ -50,6 +50,7 @@ export const uiValidationMessages = {
   maxLength: (logical_name, len) => `${logical_name}は最大${len}桁までです。`,
   maxNumber: (logical_name, len) =>
     `${logical_name}は${len}以下の数値まで有効です。`,
+  maxDate: (logical_name) => `${logical_name}に未来日は指定できません。`,
   alphaNumeric: (logical_name) => `${logical_name}は半角英数文字のみ有効です。`,
   email: () => "正しいメールアドレスを入力してください。",
   password: () => "パスワードは英字・数字・記号を1文字以上含めてください。",

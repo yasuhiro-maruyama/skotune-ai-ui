@@ -1,5 +1,6 @@
 // 共通関数(API用)
 import logger from "@/lib/logger";
+import redis from "@/lib/redis";
 import { ValidationError } from "yup";
 import { HTTP_STATUS, RESPONSE_CODE, CONTENT_TYPE } from "@/lib/apiConstants";
 import { API_MSG } from "@/lib/messages";
@@ -49,4 +50,26 @@ export async function validateRequest(schema, data) {
       }
     );
   }
+}
+
+// Redisからキーと合致する情報を全件取得する
+export async function redisScan(key) {
+  let cursor = "0";
+  let valueList = [];
+
+  do {
+    const [nextCursor, keys] = await redis.scan(cursor, {
+      match: `${key}*`,
+      count: 100,
+    });
+
+    if (keys.length > 0) {
+      const values = await redis.mget(...keys);
+      valueList.push(...values);
+    }
+
+    cursor = nextCursor;
+  } while (cursor !== "0");
+
+  return valueList;
 }

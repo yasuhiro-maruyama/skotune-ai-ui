@@ -7,6 +7,7 @@ const FIELD = {
   tune_name: "曲名",
   model_type: "採点機種",
   score: "点数",
+  scoring_date: "採点日",
 };
 
 export const schema_search = yup
@@ -35,10 +36,10 @@ export const schema_score = yup.object().shape({
         .number()
         .required(uiValidationMessages.required(FIELD.score))
         .max(100, uiValidationMessages.maxNumber(FIELD.score, 100)),
-      // scoring_date: yup
-      //   .number()
-      //   .required(uiValidationMessages.required(FIELD.score))
-      //   .max(100, uiValidationMessages.maxNumber(FIELD.score, 100)),
+      scoring_date: yup
+        .date()
+        .required(uiValidationMessages.required(FIELD.scoring_date))
+        .max(new Date(), uiValidationMessages.maxDate(FIELD.scoring_date)),
     })
   ),
 });

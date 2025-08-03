@@ -34,6 +34,9 @@ export default function Component() {
   return (
     <div>
       <h1>楽曲検索</h1>
+      <p className="annotation-msg">
+        ※ Spotifyのレート制限により、通信が不安定な場合がございます。
+      </p>
       <SearchTune onSearch={onSearch} />
       <h2>歌手一覧</h2>
       <ArtistList

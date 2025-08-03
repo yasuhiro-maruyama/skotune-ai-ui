@@ -10,7 +10,7 @@ import { TABLE_OPTION } from "@/lib/uiConstants";
 import Table from "@/components/Table";
 import Pagination from "@/components/Pagination";
 import userModel from "@/domain/common/store/userModel";
-import scoreModel from "@/domain/score/store/score/scoreModel";
+import reservationModel from "@/domain/score/store/score/reservationModel";
 import { b004002Model } from "@/domain/score/bff/B004002Model";
 
 export default function Component({ data, searchCount }) {
@@ -23,7 +23,7 @@ export default function Component({ data, searchCount }) {
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(null);
   const user = userModel((state) => state.user);
-  const score = scoreModel((state) => state.score);
+  const reservationInfo = reservationModel((state) => state.model);
 
   const startIndex = (currentPage - 1) * perPage;
   const endIndex = startIndex + perPage;
@@ -45,11 +45,13 @@ export default function Component({ data, searchCount }) {
 
     {
       key: "button",
-      label: "採点登録予定",
+      label: "採点登録予約",
       option: TABLE_OPTION.BUTTON,
       button: (item) => {
         const isLoading = loading === item.tune_id;
-        const isReserved = score.some((s) => s.tune_id === item.tune_id);
+        const isReserved = reservationInfo.some(
+          (s) => s.tune_id === item.tune_id
+        );
         const isDisabled = isLoading || isReserved;
         const label = isLoading
           ? "予約中..."
@@ -84,7 +86,6 @@ export default function Component({ data, searchCount }) {
 
     // B004002_楽曲予約登録BFF
     const result = await b004002Model({ ...data, user_id: user.user_id });
-    console.log(user.user_id);
 
     // 異常終了メッセージ
     if (!result.success_flg) {
@@ -94,16 +95,16 @@ export default function Component({ data, searchCount }) {
     }
 
     // 予約情報にデータを追加
-    scoreModel.getState().setScore([
-      ...score,
+    reservationModel.getState().setModel([
+      ...reservationInfo,
       {
         artist_id: data.artist_id,
         artist_name: data.artist_name,
         tune_id: data.tune_id,
         tune_name: data.tune_name,
         model_type: null,
-        score: 0,
-        scoring_date: null,
+        score: 0.0,
+        scoring_date: new Date().toISOString().slice(0, 10),
       },
     ]);
 
@@ -117,7 +118,7 @@ export default function Component({ data, searchCount }) {
   return (
     <div>
       <p className="annotation-msg">
-        ※ 予約した楽曲は採点登録タブで点数を登録できます。
+        ※ 予約した楽曲は一ヶ月以内に削除されます。
       </p>
       <FormProvider {...form}>
         <Table column={column} data={currentItem} rowKey="tune_id" />

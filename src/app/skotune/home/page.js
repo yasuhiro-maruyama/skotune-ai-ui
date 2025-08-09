@@ -1,18 +1,36 @@
 "use client";
-import { useState } from "react";
-import menuModel from "@/domain/common/store/menuModel";
+import Tab from "@/components/Tab";
 
-// ホーム画面
+const tabData = [
+  {
+    key: "joyspund",
+    label: "分析採点マスター",
+    content: <div>準備中です。</div>,
+  },
+  {
+    key: "joyspund_ai",
+    label: "分析採点AI",
+    content: <div>準備中です。</div>,
+  },
+  {
+    key: "dam",
+    label: "精密採点DX",
+    content: <div>準備中です。</div>,
+  },
+  {
+    key: "dam_ai",
+    label: "精密採点Ai",
+    content: <div>準備中です。</div>,
+  },
+];
+
+// U002001_ホーム画面
 export default function Page() {
-  const [activeTab, setActiveTab] = useState(0);
-  const menu = menuModel((state) => state.menu);
-
-  // DBから取得したキーで各コンポーネントの呼び出し
-  const activeKey = menu?.[activeTab]?.content;
-
   return (
     <main>
-      <div className="w-full h-screen relative overflow-hidden bg-white"></div>
+      <div className="page-item-all">
+        <Tab tab={tabData} />
+      </div>
     </main>
   );
 }

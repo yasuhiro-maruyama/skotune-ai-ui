@@ -10,6 +10,11 @@ const tabData = [
     content: <Search />,
   },
   {
+    key: "history",
+    label: "履歴検索",
+    content: <div>準備中です。</div>,
+  },
+  {
     key: "mylist",
     label: "マイリスト",
     content: <div>準備中です。</div>,

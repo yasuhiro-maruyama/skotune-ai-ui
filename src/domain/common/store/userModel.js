@@ -3,8 +3,8 @@
 import { create } from "zustand";
 
 const userModel = create((set) => ({
-  user: null,
-  setUser: (user) => set({ user }),
+  model: null,
+  setModel: (model) => set({ model }),
 }));
 
 export default userModel;

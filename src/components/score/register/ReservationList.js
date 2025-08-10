@@ -10,7 +10,9 @@ import { TABLE_OPTION } from "@/lib/uiConstants";
 import Table from "@/components/Table";
 import Pagination from "@/components/Pagination";
 import reservationModel from "@/domain/score/store/score/reservationModel";
+import userModel from "@/domain/common/store/userModel";
 import { b000003Model } from "@/domain/common/bff/B000003Model";
+import { b004001Model } from "@/domain/score/bff/B004001Model";
 import { schema_score } from "@/schema/score/ui/U004001Schema";
 
 export default function Component({ data, searchCount }) {
@@ -22,9 +24,10 @@ export default function Component({ data, searchCount }) {
   const perPage = 10;
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(false);
-  const [isRegister, setRegister] = useState(false);
   const [modelTypeCode, setModelTypeCode] = useState([]);
+  const [registerInfo, setRegisterInfo] = useState([]);
   const reservationInfo = reservationModel((state) => state.model);
+  const userInfo = userModel((state) => state.model);
 
   const startIndex = (currentPage - 1) * perPage;
   const endIndex = startIndex + perPage;
@@ -62,26 +65,30 @@ export default function Component({ data, searchCount }) {
       option: TABLE_OPTION.BUTTON,
       button: (item, index) => {
         const isLoading = loading === item.tune_id;
-        const isDisabled = isLoading || isRegister;
-        const label = isLoading
-          ? "登録中..."
-          : isRegister
-          ? "登録済み"
-          : "登録";
+        const isRegister = registerInfo.some((s) => s.tune_id === item.tune_id);
+        const label = isLoading ? "登録中..." : isRegister ? "更新" : "登録";
         return (
           <button
             type={UI_TYPE.BUTTON}
-            className={`btn ${isDisabled && "cursor-not-allowed"} ${
-              isRegister && "!bg-gray-600"
+            className={`btn ${isLoading && "cursor-not-allowed"} ${
+              isRegister && "!bg-yellow-500"
             }`}
-            disabled={isDisabled}
+            disabled={isLoading}
             onClick={() => {
               const fieldKeys = ["model_type", "score", "scoring_date"];
               const targets = fieldKeys.map((key) => `table.${index}.${key}`);
               form.trigger(targets).then((valid) => {
                 if (valid) {
                   const values = form.getValues();
-                  register(values.table?.[index]);
+                  register(
+                    {
+                      ...values.table?.[index],
+                      user_id: userInfo.user_id,
+                      artist_id: item.artist_id,
+                      tune_id: item.tune_id,
+                    },
+                    isRegister
+                  );
                 }
               });
             }}
@@ -103,7 +110,6 @@ export default function Component({ data, searchCount }) {
       // 異常終了メッセージ
       if (!result.success_flg) {
         toast.error(UI_MSG.masterError);
-        setLoading(false);
         return;
       }
 
@@ -117,20 +123,29 @@ export default function Component({ data, searchCount }) {
   }, [searchCount]);
 
   // 登録ボタン押下
-  const register = async (data) => {
+  const register = async (data, isRegister) => {
     // ローディング開始
-    setLoading(true);
+    setLoading(data.tune_id);
+    // B004001_採点履歴登録BFF実行
+    const result = await b004001Model(data);
+    // 異常終了メッセージ
+    if (!result.success_flg) {
+      toast.error(UI_MSG.scoreRegisterError);
+      setLoading(null);
+      return;
+    }
 
-    console.log("送信対象行：", data);
+    // 登録済みのデータを配列に追加
+    setRegisterInfo(registerInfo.push(data));
 
     // ローディング終了
-    setLoading(false);
+    setLoading(null);
   };
 
   return (
     <div>
       <p className="annotation-msg">
-        ※ 一時保存したデータは、1ヶ月以内に削除されます。
+        ※ 予約した楽曲データは、1ヶ月以内に削除されます。
       </p>
       <FormProvider {...form}>
         <form>

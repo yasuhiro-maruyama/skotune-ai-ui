@@ -22,7 +22,7 @@ export default function Component({ data, searchCount }) {
   const perPage = 10;
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(null);
-  const user = userModel((state) => state.user);
+  const userInfo = userModel((state) => state.model);
   const reservationInfo = reservationModel((state) => state.model);
 
   const startIndex = (currentPage - 1) * perPage;
@@ -85,7 +85,7 @@ export default function Component({ data, searchCount }) {
     setLoading(data.tune_id);
 
     // B004002_楽曲予約登録BFF
-    const result = await b004002Model({ ...data, user_id: user.user_id });
+    const result = await b004002Model({ ...data, user_id: userInfo.user_id });
 
     // 異常終了メッセージ
     if (!result.success_flg) {

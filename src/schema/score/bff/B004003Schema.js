@@ -4,7 +4,6 @@ import { apiValidationMessages } from "@/lib/messages";
 
 const FIELD = {
   user_id: { logical_name: "ユーザーID", field_name: "user_id" },
-  tune_id: { logical_name: "楽曲ID", field_name: "tune_id" },
 };
 export const schema = yup.object().shape({
   user_id: yup

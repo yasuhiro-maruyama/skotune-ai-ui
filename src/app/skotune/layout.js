@@ -8,7 +8,7 @@ export default function RootLayout({ children }) {
   const router = useRouter();
   const pathname = usePathname();
   const isMobile = useMediaQuery("(max-width: 768px)");
-  const user = userModel((state) => state.user);
+  const user = userModel((state) => state.model);
   const menu = menuModel((state) => state.menu);
 
   const isActivePath = (targetPath) => pathname === targetPath;

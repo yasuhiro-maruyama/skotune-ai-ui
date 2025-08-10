@@ -41,7 +41,7 @@ export default function RootLayout({ children }) {
       // メニュー情報取得
       const menuInfo = b001002Result.response_info.menu_info;
       // ユーザー情報再保存
-      userModel.getState().setUser(userInfo);
+      userModel.getState().setModel(userInfo);
       // メニュー情報設定
       menuModel.getState().setMenu(menuInfo);
       // 全てのメニュー機能の内容を取得

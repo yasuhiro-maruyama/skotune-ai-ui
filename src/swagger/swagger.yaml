@@ -148,3 +148,98 @@ paths:
           description: バリデーションエラー
         "500":
           description: 内部サーバーエラー
+  /api/score/reservation/register:
+    post:
+      summary: B004002_楽曲予約登録BFF
+      description: Redisに採点予定の楽曲を一時的に保存するBFF
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - user_id
+                - artist_id
+                - artist_name
+                - tune_id
+                - tune_name
+                - model_type
+                - score
+                - scoring_date
+              properties:
+                user_id:
+                  type: string
+                artist_id:
+                  type: string
+                artist_name:
+                  type: string
+                tune_id:
+                  type: string
+                tune_name:
+                  type: string
+                model_type:
+                  type: string
+                score:
+                  type: number
+                  format: float
+                  minimum: 0
+                  maximum: 100
+                  multipleOf: 0.001
+                scoring_date:
+                  type: string
+                  format: date
+      responses:
+        "200":
+          description: 成功時のレスポンス
+        "422":
+          description: バリデーションエラー
+        "500":
+          description: 内部サーバーエラー
+  /api/score/reservation/get:
+    post:
+      summary: B004003_楽曲予約取得BFF
+      description: Redisに保存された採点予定の楽曲を取得するBFF
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - user_id
+              properties:
+                user_id:
+                  type: string
+      responses:
+        "200":
+          description: 成功時のレスポンス
+        "422":
+          description: バリデーションエラー
+        "500":
+          description: 内部サーバーエラー
+  /api/score/reservation/delete:
+    post:
+      summary: B004004_楽曲予約削除BFF
+      description: Redisに一時登録した予約情報を削除するBFF
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - user_id
+                - tune_id
+              properties:
+                user_id:
+                  type: string
+                tune_id:
+                  type: string
+      responses:
+        "200":
+          description: 成功時のレスポンス
+        "422":
+          description: バリデーションエラー
+        "500":
+          description: 内部サーバーエラー

@@ -18,6 +18,8 @@ export const UI_MSG = {
   searchSuccess: "楽曲の取得が正常に完了しました。",
   searchNoData: "検索結果がありません。",
   searchReservation: "予約情報を登録しました。",
+  scoreRegisterError:
+    "採点登録機能に異常が発生しました。時間をおいて確認してください。",
 };
 
 // バリデーションエラーAPI用メッセージ

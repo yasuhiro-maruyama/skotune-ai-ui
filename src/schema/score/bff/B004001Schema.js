@@ -127,8 +127,7 @@ export const schema = yup.object().shape({
         FIELD.model_type.field_name,
         2
       )
-    )
-    .notRequired(),
+    ),
   score: yup
     .number()
     .required(

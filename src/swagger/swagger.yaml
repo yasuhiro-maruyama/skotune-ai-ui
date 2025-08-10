@@ -243,3 +243,81 @@ paths:
           description: バリデーションエラー
         "500":
           description: 内部サーバーエラー
+  /api/score/update:
+    post:
+      summary: B004006_採点履歴更新BFF
+      description: ユーザーの採点情報を更新するBFF
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - user_id
+                - tune_id
+                - model_type
+                - score
+                - scoring_date
+                - registered_model_type
+                - registered_scoring_date
+              properties:
+                user_id:
+                  type: string
+                tune_id:
+                  type: string
+                model_type:
+                  type: string
+                score:
+                  type: number
+                  format: float
+                  minimum: 0
+                  maximum: 100
+                  multipleOf: 0.001
+                scoring_date:
+                  type: string
+                  format: date
+                registered_model_type:
+                  type: string
+                registered_scoring_date:
+                  type: string
+                  format: date
+      responses:
+        "200":
+          description: 成功時のレスポンス
+        "422":
+          description: バリデーションエラー
+        "500":
+          description: 内部サーバーエラー
+  /api/score/delete:
+    post:
+      summary: B004007_採点履歴削除BFF
+      description: ユーザーの採点情報を削除するBFF
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - user_id
+                - tune_id
+                - model_type
+                - scoring_date
+              properties:
+                user_id:
+                  type: string
+                tune_id:
+                  type: string
+                model_type:
+                  type: string
+                scoring_date:
+                  type: string
+                  format: date
+      responses:
+        "200":
+          description: 成功時のレスポンス
+        "422":
+          description: バリデーションエラー
+        "500":
+          description: 内部サーバーエラー

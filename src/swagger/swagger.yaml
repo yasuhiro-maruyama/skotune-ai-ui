@@ -100,3 +100,51 @@ paths:
           description: バリデーションエラー
         "500":
           description: 内部サーバーエラー
+  /api/score/register:
+    post:
+      summary: B004001_採点履歴登録BFF
+      description: ユーザーの採点情報を登録するBFF
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - user_id
+                - artist_id
+                - artist_name
+                - tune_id
+                - tune_name
+                - model_type
+                - score
+                - scoring_date
+              properties:
+                user_id:
+                  type: string
+                artist_id:
+                  type: string
+                artist_name:
+                  type: string
+                tune_id:
+                  type: string
+                tune_name:
+                  type: string
+                model_type:
+                  type: string
+                score:
+                  type: number
+                  format: float
+                  minimum: 0
+                  maximum: 100
+                  multipleOf: 0.001
+                scoring_date:
+                  type: string
+                  format: date
+      responses:
+        "200":
+          description: 成功時のレスポンス
+        "422":
+          description: バリデーションエラー
+        "500":
+          description: 内部サーバーエラー

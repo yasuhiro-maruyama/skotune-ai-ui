@@ -1,4 +1,4 @@
-// B000001_ヘルスチェックBFF
+// B000_000_共通機能_ヘルスチェックBFF
 "use server";
 import { successResponse } from "@/lib/response";
 

@@ -3,9 +3,9 @@ info:
   title: skotune-ai Next.js API Route
   version: 1.0.0
 paths:
-  /api/common/health:
+  /api/common/000:
     get:
-      summary: B000001_ヘルスチェックBFF
+      summary: B000_000_共通機能_ヘルスチェックBFF
       description: BFFサーバーが正常に稼働しているか確認
       responses:
         "200":

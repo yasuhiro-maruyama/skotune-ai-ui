@@ -4,6 +4,7 @@ import { useMediaQuery } from "@/hooks/useMediaQuery";
 import userModel from "@/domain/common/store/userModel";
 import menuModel from "@/domain/common/store/menuModel";
 
+// U000_001_メニューレイアウト画面
 export default function RootLayout({ children }) {
   const router = useRouter();
   const pathname = usePathname();
@@ -13,7 +14,7 @@ export default function RootLayout({ children }) {
 
   const isActivePath = (targetPath) => pathname === targetPath;
 
-  // モバイル版メニューレイアウト
+  // モバイル版レイアウト
   if (isMobile) {
     return (
       <main className="flex flex-col min-h-screen bg-gray-100 text-gray-900">
@@ -45,7 +46,7 @@ export default function RootLayout({ children }) {
     );
   }
 
-  // PC版メニューレイアウト
+  // PC版レイアウト
   return (
     <div className="flex min-h-screen">
       {/* メニュー表示 */}

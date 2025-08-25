@@ -10,10 +10,10 @@ paths:
       responses:
         "200":
           description: 成功時のレスポンス
-  /api/common/code:
+  /api/common/002:
     post:
-      summary: B000003_コード値取得BFF
-      description: リクエストに一致したコード情報を取得するBFF
+      summary: B000_002_共通機能_コード値取得BFF
+      description: プルダウンなどに使用するコード値を処理するBFF
       requestBody:
         required: true
         content:

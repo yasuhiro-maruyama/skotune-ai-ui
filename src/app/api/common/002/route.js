@@ -1,6 +1,6 @@
-// B000003_コード値取得BFF
+// B000_002_共通機能_コード値取得BFF
 "use server";
-import { schema } from "@/schema/common/bff/B000003Schema";
+import { schema } from "@/schema/common/bff/B000002Schema";
 import { validateRequest } from "@/utils/apiUtils";
 import { a000005Model } from "@/domain/common/api/A000005Model";
 import { successResponse, internalServerErrorResponse } from "@/lib/response";

@@ -1,4 +1,4 @@
-// B000003_コード値取得BFF Validation
+// B000_002_共通機能_コード値取得BFF Validation
 import * as yup from "yup";
 import { apiValidationMessages } from "@/lib/messages";
 

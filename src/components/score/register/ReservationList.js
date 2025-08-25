@@ -11,7 +11,7 @@ import Table from "@/components/Table";
 import Pagination from "@/components/Pagination";
 import reservationModel from "@/domain/score/store/score/reservationModel";
 import userModel from "@/domain/common/store/userModel";
-import { b000003Model } from "@/domain/common/bff/B000003Model";
+import { b000002Model } from "@/domain/common/bff/B000002Model";
 import { b004001Model } from "@/domain/score/bff/B004001Model";
 import { b004004Model } from "@/domain/score/bff/B004004Model";
 import { schema_score } from "@/schema/score/ui/U004001Schema";
@@ -108,8 +108,8 @@ export default function Component() {
     setCurrentPage(1);
 
     const getCode = async () => {
-      // B000003_コード値取得BFF実行
-      const result = await b000003Model({ code_id: "0001" });
+      // B000_002_共通機能_コード値取得BFF実行
+      const result = await b000002Model({ code_id: "0001" });
       // 異常終了メッセージ
       if (!result.success_flg) {
         toast.error(UI_MSG.masterError);

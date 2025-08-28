@@ -16,7 +16,8 @@ export async function POST(req) {
   await redis.set(
     `score_reservation:${param.user_id}_${param.tune_id}`,
     JSON.stringify(param),
-    { ex: CASH_TIME }
+    "EX",
+    CASH_TIME
   );
 
   // 正常終了

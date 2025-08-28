@@ -26,7 +26,7 @@ export async function POST(req) {
     if (!result.success_flg) return internalServerErrorResponse();
 
     // Redisに楽曲情報を保存
-    await redis.set(param.artist_id, JSON.stringify(result), { ex: CASH_TIME });
+    await redis.set(param.artist_id, JSON.stringify(result), "EX", CASH_TIME);
   }
 
   // 正常終了

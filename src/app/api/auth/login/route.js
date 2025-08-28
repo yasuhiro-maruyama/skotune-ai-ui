@@ -33,9 +33,8 @@ export async function POST(req) {
   await redis.set(
     `auth_token:${sessionId}`,
     JSON.stringify(result.response_info),
-    {
-      ex: SESSION_TIME,
-    }
+    "EX",
+    SESSION_TIME
   );
 
   const response = NextResponse.json(result, {

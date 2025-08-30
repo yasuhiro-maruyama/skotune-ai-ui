@@ -11,18 +11,17 @@ paths:
         "200":
           description: 成功時のレスポンス
   /api/common/002:
-    post:
+    get:
       summary: B000_002_共通機能_コード値取得BFF
       description: プルダウンなどに使用するコード値を処理するBFF
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                code_id:
-                  type: string
+      parameters:
+        - in: query
+          name: code_id
+          required: true
+          schema:
+            type: string
+            minLength: 4
+            maxLength: 4
       responses:
         "200":
           description: 成功時のレスポンス

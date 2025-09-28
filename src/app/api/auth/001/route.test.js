@@ -1,11 +1,11 @@
-// B001001_ログイン照会BFF テスト
+// B001_001_認証機能_ログイン照会BFF テスト
 import { validateRequest } from "@/utils/apiUtils";
 import bffClient from "@/lib/BFFModel";
 import apiClient from "@/lib/APIModel";
 import { HTTP_STATUS, RESPONSE_CODE } from "@/lib/apiConstants";
 import { API_MSG } from "@/lib/messages";
 import { b001001Model } from "@/domain/auth/bff/B001001Model";
-import { POST } from "@/app/api/auth/login/route";
+import { POST } from "@/app/api/auth/001/route";
 
 // bffClientをモック
 jest.mock("@/app/model/bff/BFFModel", () => ({
@@ -103,7 +103,7 @@ describe("apiUtils_テスト実行", () => {
   });
 });
 
-describe("B001001_ログイン照会BFF_Model_テスト実行", () => {
+describe("B001_001_認証機能_ログイン照会BFF_Model_テスト実行", () => {
   it("S01_正常系：通信成功", async () => {
     // モック作成
     bffClient.post.mockResolvedValue({ data: successRes });
@@ -127,7 +127,7 @@ describe("B001001_ログイン照会BFF_Model_テスト実行", () => {
   });
 });
 
-describe("B001001_ログイン照会BFF_テスト実行", () => {
+describe("B001_001_認証機能_ログイン照会BFF_テスト実行", () => {
   it("S01_正常系：認証成功", async () => {
     // モック作成
     apiClient.post.mockResolvedValue({ data: successRes });

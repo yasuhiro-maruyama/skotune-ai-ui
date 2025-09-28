@@ -1,11 +1,11 @@
-// B001001_ログイン照会BFF
+// B001_001_認証機能_ログイン照会BFF
 "use server";
 import { NextResponse } from "next/server";
 import { randomUUID } from "crypto";
 import jwt from "jsonwebtoken";
 import redis from "@/lib/redis";
-import { HTTP_STATUS } from "@/lib/apiConstants";
 import { authErrorResponse } from "@/lib/response";
+import * as CONSTANTS from "@/lib/apiConstants";
 import { validateRequest } from "@/utils/apiUtils";
 import { schema } from "@/schema/auth/bff/B001001Schema";
 import { a001001Model } from "@/domain/auth/api/A001001Model";
@@ -17,7 +17,7 @@ export async function POST(req) {
   const param = await validateRequest(schema, await req.json());
   if (param instanceof Response) return param;
 
-  // ログイン照会API実行
+  // A001_001_認証機能_ログイン照会API実行
   const result = await a001001Model(param);
 
   // 異常終了の場合、全て認証エラーとする
@@ -31,21 +31,21 @@ export async function POST(req) {
 
   // Redisに保存
   await redis.set(
-    `auth_token:${sessionId}`,
+    `${CONSTANTS.REDIS_KEY.AUTH_TOKEN}:${sessionId}`,
     JSON.stringify(result.response_info),
-    "EX",
+    CONSTANTS.REDIS_OPTION.EXPIRE,
     SESSION_TIME
   );
 
   const response = NextResponse.json(result, {
-    status: HTTP_STATUS.OK,
+    status: CONSTANTS.HTTP_STATUS.OK,
   });
 
   // cookieに保存
   response.cookies.set(process.env.COOKIE_TOKEN, token, {
     httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "lax",
+    secure: process.env.NODE_ENV === CONSTANTS.ENV.PRODUCTION,
+    sameSite: CONSTANTS.COOKIE_OPTION.SAME_SITE,
     path: "/",
     maxAge: SESSION_TIME,
   });

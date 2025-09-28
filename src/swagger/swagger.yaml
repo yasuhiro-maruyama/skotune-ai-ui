@@ -42,9 +42,9 @@ paths:
           description: 成功時のレスポンス
         "422":
           description: バリデーションエラー
-  /api/auth/login:
+  /api/auth/001:
     post:
-      summary: B001001_ログイン照会BFF
+      summary: B001_001_認証機能_ログイン照会BFF
       description: リクエストに合致したユーザ情報を返却
       requestBody:
         required: true

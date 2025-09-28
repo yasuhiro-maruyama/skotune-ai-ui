@@ -30,4 +30,22 @@ export const CONTENT_TYPE = {
 export const REDIS_KEY = {
   COMMON_MENU: "common_menu",
   COMMON_CODE: "common_code",
+  AUTH_TOKEN: "auth_token",
+};
+
+// Redis用定数
+export const REDIS_OPTION = {
+  EXPIRE: "EX",
+};
+
+// 環境
+export const ENV = {
+  PRODUCTION: "production",
+  STAGING: "staging",
+  DEVELOPMENT: "development",
+};
+
+// Cookie用定数
+export const COOKIE_OPTION = {
+  SAME_SITE: "lax",
 };

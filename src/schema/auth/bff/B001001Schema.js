@@ -1,4 +1,4 @@
-// B001001_ログイン照会BFF Validation
+// B001_001_認証機能_ログイン照会BFF Validation
 import * as yup from "yup";
 import { apiValidationMessages } from "@/lib/messages";
 

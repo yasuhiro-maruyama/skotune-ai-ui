@@ -32,7 +32,7 @@ export default function Page() {
 
   // ログインボタン押下時
   const loginButton = async (data) => {
-    // B001001_ログイン照会BFF実行
+    // B001_001_認証機能_ログイン照会BFF実行
     const result = await b001001Model(data);
 
     // 異常終了であれば、メッセージを表示して終了

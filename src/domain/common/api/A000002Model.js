@@ -9,7 +9,7 @@ export async function a000002Model(state) {
   const { code_id } = state;
 
   try {
-    const res = await apiClient.get("/common/002", { code_id });
+    const res = await apiClient.get("/common/002", { params: { code_id } });
     return res.data;
   } catch (err) {
     logger.error(ifName + "で通信エラーが発生しました。", err.msseage);

@@ -8,7 +8,7 @@ export async function b000002Model(state) {
   const { code_id } = state;
 
   try {
-    const res = await bffClient.get("/common/002", { code_id });
+    const res = await bffClient.get("/common/002", { params: { code_id } });
     return res.data;
   } catch (err) {
     return { success_flg: false };

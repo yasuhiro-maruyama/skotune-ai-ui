@@ -1,15 +1,17 @@
-// A000004_メニュー機能取得API Model
+// A000_001_共通機能_メニュー機能取得API Model
 "use server";
 import apiClient from "@/lib/APIModel";
 import logger from "@/lib/logger";
 
-const ifName = "A000004_メニュー機能取得API";
+const ifName = "A000_001_共通機能_メニュー機能取得API";
 
-export async function a000004Model(state) {
+export async function a000001Model(state) {
   const { administrator_flg } = state;
 
   try {
-    const res = await apiClient.post("/common/menu", { administrator_flg });
+    const res = await apiClient.get("/common/001", {
+      params: { administrator_flg },
+    });
     return res.data;
   } catch (err) {
     logger.error(ifName + "で通信エラーが発生しました。", err.msseage);

@@ -10,6 +10,21 @@ paths:
       responses:
         "200":
           description: 成功時のレスポンス
+  /api/common/001:
+    get:
+      summary: B000_001_共通機能_メニュー機能取得BFF
+      description: 画面に表示するメニュー機能を処理するBFF
+      parameters:
+        - in: query
+          name: administrator_flg
+          required: true
+          schema:
+            type: boolean
+      responses:
+        "200":
+          description: 成功時のレスポンス
+        "422":
+          description: バリデーションエラー
   /api/common/002:
     get:
       summary: B000_002_共通機能_コード値取得BFF

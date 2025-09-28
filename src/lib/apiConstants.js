@@ -25,3 +25,9 @@ export const RESPONSE_CODE = {
 export const CONTENT_TYPE = {
   APPLICATION_JSON: "application/json",
 };
+
+// Redisキー
+export const REDIS_KEY = {
+  COMMON_MENU: "common_menu",
+  COMMON_CODE: "common_code",
+};

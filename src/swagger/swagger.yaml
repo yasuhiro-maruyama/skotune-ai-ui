@@ -24,6 +24,8 @@ paths:
                 - $ref: "#/components/schemas/B000_001_Request"
                 - $ref: "#/components/schemas/B000_002_Request"
                 - $ref: "#/components/schemas/B001_001_Request"
+                - $ref: "#/components/schemas/B001_002_Request_Get"
+                - $ref: "#/components/schemas/B001_002_Request_Delete"
             examples:
               B000_001:
                 summary: B000_001_共通機能_メニュー情報BFF_リクエスト
@@ -47,6 +49,16 @@ paths:
                   payload:
                     user_id: "test@gmail.com"
                     password: "test"
+              B001_002_GET:
+                summary: B001_002_認証機能_トークン情報BFF_リクエスト（GET）
+                value:
+                  ifId: B001_002
+                  method: get
+              B001_002_DELETE:
+                summary: B001_002_認証機能_トークン情報BFF_リクエスト（DELETE）
+                value:
+                  ifId: B001_002
+                  method: delete
       responses:
         "200":
           description: 正常応答
@@ -57,6 +69,8 @@ paths:
                   - $ref: "#/components/schemas/B000_001_Response"
                   - $ref: "#/components/schemas/B000_002_Response"
                   - $ref: "#/components/schemas/B001_001_Response"
+                  - $ref: "#/components/schemas/B001_002_Response_Get"
+                  - $ref: "#/components/schemas/B001_002_Response_Delete"
         "422":
           description: バリデーションエラー
 
@@ -120,6 +134,17 @@ components:
                   type: string
                   description: パスワード
               required: [user_id, password]
+
+    B001_002_Request_Get:
+      title: B001_002_認証機能_トークン情報BFF_リクエスト（GET）
+      allOf:
+        - $ref: "#/components/schemas/BaseRequest"
+        - type: object
+    B001_002_Request_Delete:
+      title: B001_002_認証機能_トークン情報BFF_リクエスト（DELETE）
+      allOf:
+        - $ref: "#/components/schemas/BaseRequest"
+        - type: object
 
     BaseResponse:
       title: 共通レスポンス
@@ -201,3 +226,38 @@ components:
                   administrator_flg:
                     type: boolean
                     description: 管理者フラグ
+
+    B001_002_Response_Get:
+      title: B001_002_認証機能_トークン情報BFF_レスポンス（GET）
+      allOf:
+        - $ref: "#/components/schemas/BaseResponse"
+        - type: object
+          properties:
+            response_info:
+              type: array
+              items:
+                type: object
+                properties:
+                  user_id:
+                    type: string
+                    description: ユーザーID
+                  user_name:
+                    type: string
+                    description: ユーザー名称
+                  administrator_flg:
+                    type: boolean
+                    description: 管理者フラグ
+    B001_002_Response_Delete:
+      title: B001_002_認証機能_トークン情報BFF_レスポンス（DELETE）
+      allOf:
+        - $ref: "#/components/schemas/BaseResponse"
+        - type: object
+          properties:
+            response_info:
+              type: array
+              items:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: ステータス

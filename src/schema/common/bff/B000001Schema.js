@@ -8,7 +8,7 @@ const FIELD = {
     field_name: "administrator_flg",
   },
 };
-export const schema = yup.object({
+export const getSchema = yup.object({
   administrator_flg: yup
     .boolean()
     .required(

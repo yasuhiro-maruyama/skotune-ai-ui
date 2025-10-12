@@ -44,3 +44,31 @@ export function authErrorResponse() {
     }
   );
 }
+
+// 未検出エラー(IF-ID)
+export function notFoundIfIdErrorResponse() {
+  return NextResponse.json(
+    {
+      success_flg: false,
+      code: RESPONSE_CODE.NOT_FOUND,
+      message: API_MSG.notFoundIfIdError,
+    },
+    {
+      status: HTTP_STATUS.NOT_FOUND,
+    }
+  );
+}
+
+// 未検出エラー(HTTPメソッド)
+export function notFoundMethodErrorResponse() {
+  return NextResponse.json(
+    {
+      success_flg: false,
+      code: RESPONSE_CODE.NOT_FOUND,
+      message: API_MSG.notFoundMethodError,
+    },
+    {
+      status: HTTP_STATUS.NOT_FOUND,
+    }
+  );
+}

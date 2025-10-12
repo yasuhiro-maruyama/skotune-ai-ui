@@ -1,337 +1,114 @@
 openapi: 3.0.0
 info:
-  title: skotune-ai Next.js API Route
+  title: skotune-ai BFF
   version: 1.0.0
 paths:
-  /api/common/000:
+  /api/bff:
     get:
       summary: B000_000_共通機能_ヘルスチェックBFF
       description: BFFサーバーが正常に稼働しているか確認
       responses:
         "200":
           description: 成功時のレスポンス
-  /api/common/001:
-    get:
-      summary: B000_001_共通機能_メニュー機能取得BFF
-      description: 画面に表示するメニュー機能を処理するBFF
-      parameters:
-        - in: query
-          name: administrator_flg
-          required: true
-          schema:
-            type: boolean
-      responses:
-        "200":
-          description: 成功時のレスポンス
-        "422":
-          description: バリデーションエラー
-  /api/common/002:
-    get:
-      summary: B000_002_共通機能_コード値取得BFF
-      description: プルダウンなどに使用するコード値を処理するBFF
-      parameters:
-        - in: query
-          name: code_id
-          required: true
-          schema:
-            type: string
-            minLength: 4
-            maxLength: 4
-      responses:
-        "200":
-          description: 成功時のレスポンス
-        "422":
-          description: バリデーションエラー
-  /api/auth/001:
     post:
-      summary: B001_001_認証機能_ログイン照会BFF
-      description: リクエストに合致したユーザ情報を返却
+      summary: BFF統合エンドポイント
+      description: |
+        ifIdにより実行する処理を切り替え
+        payloadの内容は各IFによって異なる
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              type: object
-              required:
-                - user_id
-                - password
-              properties:
-                user_id:
-                  type: string
-                password:
-                  type: string
+              discriminator:
+                propertyName: ifId
+                mapping:
+                  B000_001: "#/components/schemas/B000_001_Request"
+              oneOf:
+                - $ref: "#/components/schemas/B000_001_Request"
       responses:
         "200":
-          description: 成功時のレスポンス
-        "401":
-          description: 認証失敗
+          description: 正常応答
+          content:
+            application/json:
+              schema:
+                discriminator:
+                  propertyName: ifId
+                  mapping:
+                    B000_001: "#/components/schemas/B000_001_Response"
+                oneOf:
+                  - $ref: "#/components/schemas/B000_001_Response"
         "422":
           description: バリデーションエラー
-  /api/search/tune:
-    post:
-      summary: 楽曲検索BFF
-      description: リクエストに合致した歌手・楽曲情報を返却
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
+
+components:
+  schemas:
+    BaseRequest:
+      title: 共通リクエスト
+      type: object
+      properties:
+        ifId:
+          type: string
+          description: IF-ID
+        method:
+          type: string
+          description: HTTPメソッド
+        payload:
+          type: object
+      required: [ifId, method, payload]
+
+    B000_001_Request:
+      title: B000_001_共通機能_メニュー情報BFF_リクエスト
+      allOf:
+        - $ref: "#/components/schemas/BaseRequest"
+        - type: object
+          properties:
+            payload:
               type: object
-              required:
-                - artist_name
-                - tune_name
               properties:
-                artist_name:
-                  type: string
-                tune_name:
-                  type: string
-      responses:
-        "200":
-          description: 成功時のレスポンス
-        "422":
-          description: バリデーションエラー
-        "500":
-          description: 内部サーバーエラー
-  /api/search/artist/tune:
-    post:
-      summary: 全楽曲取得BFF
-      description: リクエストに合致した歌手の楽曲を全て返却
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              required:
-                - artist_id
-              properties:
-                artist_id:
-                  type: string
-      responses:
-        "200":
-          description: 成功時のレスポンス
-        "422":
-          description: バリデーションエラー
-        "500":
-          description: 内部サーバーエラー
-  /api/score/register:
-    post:
-      summary: B004001_採点履歴登録BFF
-      description: ユーザーの採点情報を登録するBFF
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              required:
-                - user_id
-                - artist_id
-                - artist_name
-                - tune_id
-                - tune_name
-                - model_type
-                - score
-                - scoring_date
-              properties:
-                user_id:
-                  type: string
-                artist_id:
-                  type: string
-                artist_name:
-                  type: string
-                tune_id:
-                  type: string
-                tune_name:
-                  type: string
-                model_type:
-                  type: string
-                score:
-                  type: number
-                  format: float
-                  minimum: 0
-                  maximum: 100
-                  multipleOf: 0.001
-                scoring_date:
-                  type: string
-                  format: date
-      responses:
-        "200":
-          description: 成功時のレスポンス
-        "422":
-          description: バリデーションエラー
-        "500":
-          description: 内部サーバーエラー
-  /api/score/reservation/register:
-    post:
-      summary: B004002_楽曲予約登録BFF
-      description: Redisに採点予定の楽曲を一時的に保存するBFF
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              required:
-                - user_id
-                - artist_id
-                - artist_name
-                - tune_id
-                - tune_name
-                - model_type
-                - score
-                - scoring_date
-              properties:
-                user_id:
-                  type: string
-                artist_id:
-                  type: string
-                artist_name:
-                  type: string
-                tune_id:
-                  type: string
-                tune_name:
-                  type: string
-                model_type:
-                  type: string
-                score:
-                  type: number
-                  format: float
-                  minimum: 0
-                  maximum: 100
-                  multipleOf: 0.001
-                scoring_date:
-                  type: string
-                  format: date
-      responses:
-        "200":
-          description: 成功時のレスポンス
-        "422":
-          description: バリデーションエラー
-        "500":
-          description: 内部サーバーエラー
-  /api/score/reservation/get:
-    post:
-      summary: B004003_楽曲予約取得BFF
-      description: Redisに保存された採点予定の楽曲を取得するBFF
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              required:
-                - user_id
-              properties:
-                user_id:
-                  type: string
-      responses:
-        "200":
-          description: 成功時のレスポンス
-        "422":
-          description: バリデーションエラー
-        "500":
-          description: 内部サーバーエラー
-  /api/score/reservation/delete:
-    post:
-      summary: B004004_楽曲予約削除BFF
-      description: Redisに一時登録した予約情報を削除するBFF
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              required:
-                - user_id
-                - tune_id
-              properties:
-                user_id:
-                  type: string
-                tune_id:
-                  type: string
-      responses:
-        "200":
-          description: 成功時のレスポンス
-        "422":
-          description: バリデーションエラー
-        "500":
-          description: 内部サーバーエラー
-  /api/score/update:
-    post:
-      summary: B004006_採点履歴更新BFF
-      description: ユーザーの採点情報を更新するBFF
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              required:
-                - user_id
-                - tune_id
-                - model_type
-                - score
-                - scoring_date
-                - registered_model_type
-                - registered_scoring_date
-              properties:
-                user_id:
-                  type: string
-                tune_id:
-                  type: string
-                model_type:
-                  type: string
-                score:
-                  type: number
-                  format: float
-                  minimum: 0
-                  maximum: 100
-                  multipleOf: 0.001
-                scoring_date:
-                  type: string
-                  format: date
-                registered_model_type:
-                  type: string
-                registered_scoring_date:
-                  type: string
-                  format: date
-      responses:
-        "200":
-          description: 成功時のレスポンス
-        "422":
-          description: バリデーションエラー
-        "500":
-          description: 内部サーバーエラー
-  /api/score/delete:
-    post:
-      summary: B004007_採点履歴削除BFF
-      description: ユーザーの採点情報を削除するBFF
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              required:
-                - user_id
-                - tune_id
-                - model_type
-                - scoring_date
-              properties:
-                user_id:
-                  type: string
-                tune_id:
-                  type: string
-                model_type:
-                  type: string
-                scoring_date:
-                  type: string
-                  format: date
-      responses:
-        "200":
-          description: 成功時のレスポンス
-        "422":
-          description: バリデーションエラー
-        "500":
-          description: 内部サーバーエラー
+                administrator_flg:
+                  type: boolean
+                  description: 管理者フラグ
+              required: [administrator_flg]
+
+    BaseResponse:
+      title: 共通レスポンス
+      type: object
+      properties:
+        success_flg:
+          type: boolean
+          description: 正常終了フラグ
+        code:
+          type: string
+          description: 結果コード
+        message:
+          type: string
+          description: 結果メッセージ
+      required: [success_flg, code]
+
+    B000_001_Response:
+      title: B000_001_共通機能_メニュー情報BFF_レスポンス
+      allOf:
+        - $ref: "#/components/schemas/BaseResponse"
+        - type: object
+          properties:
+            response_info:
+              type: array
+              items:
+                type: object
+                properties:
+                  sort:
+                    type: number
+                    description: ソート順
+                  label:
+                    type: string
+                    description: ラベル
+                  icon:
+                    type: string
+                    description: アイコン
+                  content:
+                    type: string
+                    description: 内容
+                  administrator_flg:
+                    type: boolean
+                    description: 管理者フラグ

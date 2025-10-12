@@ -4,6 +4,8 @@ export const API_MSG = {
   internalServerError: "内部サーバーエラーが発生しました。",
   validationError: "バリデーションエラーが発生しました。",
   authError: "認証エラーが発生しました。",
+  notFoundIfIdError: "指定したIF-IDは存在しません。",
+  notFoundMethodError: "指定したHTTPメソッドは存在しません。",
 };
 
 // UI用メッセージ

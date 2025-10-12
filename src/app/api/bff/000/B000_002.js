@@ -35,7 +35,7 @@ async function get(payload) {
   // Redisからキャッシュ情報を取得
   const cache = await redis.get(REDIS_KEY.COMMON_CODE);
   // キャッシュ情報返却
-  if (cache) return successResponse(JSON.parse(cache).find(codeIdFilter));
+  if (cache) return successResponse(JSON.parse(cache).filter(codeIdFilter));
 
   // A000_002_共通機能_コード値取得API実行
   const result = await a000002Model(param);

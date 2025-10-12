@@ -46,12 +46,11 @@ async function get(payload) {
   }
 
   // A000_001_共通機能_メニュー機能取得API実行
-  const result = await a000001Model(param);
+  const result = await a000001Model();
   if (!result.success_flg) return internalServerErrorResponse();
 
-  const response_info = result.response_info;
-
   // キャッシュ保存
+  const response_info = result.response_info;
   redis.set(REDIS_KEY.COMMON_MENU, JSON.stringify(response_info));
 
   // 正常終了

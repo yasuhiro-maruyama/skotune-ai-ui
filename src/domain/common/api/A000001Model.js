@@ -5,13 +5,9 @@ import logger from "@/lib/logger";
 
 const ifName = "A000_001_共通機能_メニュー機能取得API";
 
-export async function a000001Model(state) {
-  const { administrator_flg } = state;
-
+export async function a000001Model() {
   try {
-    const res = await apiClient.get("/common/001", {
-      params: { administrator_flg },
-    });
+    const res = await apiClient.get("/common/001", {});
     return res.data;
   } catch (err) {
     logger.error(ifName + "で通信エラーが発生しました。", err.msseage);

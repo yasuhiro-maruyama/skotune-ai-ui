@@ -1,4 +1,4 @@
-// B000_001_共通機能_メニュー機能取得BFF Validation
+// B000_001_共通機能_メニュー情報BFF Validation
 import * as yup from "yup";
 import { apiValidationMessages } from "@/lib/messages";
 

@@ -23,6 +23,7 @@ paths:
               oneOf:
                 - $ref: "#/components/schemas/B000_001_Request"
                 - $ref: "#/components/schemas/B000_002_Request"
+                - $ref: "#/components/schemas/B001_001_Request"
             examples:
               B000_001:
                 summary: B000_001_共通機能_メニュー情報BFF_リクエスト
@@ -38,6 +39,14 @@ paths:
                   method: get
                   payload:
                     code_id: "0001"
+              B001_001:
+                summary: B001_001_認証機能_ログイン照会BFF_リクエスト
+                value:
+                  ifId: B001_001
+                  method: post
+                  payload:
+                    user_id: "test@gmail.com"
+                    password: "test"
       responses:
         "200":
           description: 正常応答
@@ -47,6 +56,7 @@ paths:
                 oneOf:
                   - $ref: "#/components/schemas/B000_001_Response"
                   - $ref: "#/components/schemas/B000_002_Response"
+                  - $ref: "#/components/schemas/B001_001_Response"
         "422":
           description: バリデーションエラー
 
@@ -93,6 +103,23 @@ components:
                   type: string
                   description: コードID
               required: [code_id]
+
+    B001_001_Request:
+      title: B001_001_認証機能_ログイン照会BFF_リクエスト
+      allOf:
+        - $ref: "#/components/schemas/BaseRequest"
+        - type: object
+          properties:
+            payload:
+              type: object
+              properties:
+                user_id:
+                  type: string
+                  description: ユーザーID
+                password:
+                  type: string
+                  description: パスワード
+              required: [user_id, password]
 
     BaseResponse:
       title: 共通レスポンス
@@ -153,3 +180,24 @@ components:
                   code_name:
                     type: string
                     description: コード名称
+
+    B001_001_Response:
+      title: B001_001_認証機能_ログイン照会BFF_レスポンス
+      allOf:
+        - $ref: "#/components/schemas/BaseResponse"
+        - type: object
+          properties:
+            response_info:
+              type: array
+              items:
+                type: object
+                properties:
+                  user_id:
+                    type: string
+                    description: ユーザーID
+                  user_name:
+                    type: string
+                    description: ユーザー名称
+                  administrator_flg:
+                    type: boolean
+                    description: 管理者フラグ

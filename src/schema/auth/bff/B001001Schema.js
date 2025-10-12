@@ -6,7 +6,7 @@ const FIELD = {
   user_id: { logical_name: "ユーザーID", field_name: "user_id" },
   password: { logical_name: "パスワード", field_name: "password" },
 };
-export const schema = yup.object().shape({
+export const postSchema = yup.object().shape({
   user_id: yup
     .string()
     .required(function () {

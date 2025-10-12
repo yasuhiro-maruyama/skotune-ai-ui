@@ -38,7 +38,7 @@ async function get(payload) {
   if (cache) return successResponse(JSON.parse(cache).filter(codeIdFilter));
 
   // A000_002_共通機能_コード値取得API実行
-  const result = await a000002Model(param);
+  const result = await a000002Model();
   if (!result.success_flg) return internalServerErrorResponse();
 
   // キャッシュ保存

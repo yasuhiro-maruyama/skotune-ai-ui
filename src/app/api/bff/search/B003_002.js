@@ -3,7 +3,7 @@
 import redis from "@/lib/redis";
 import { getSchema } from "@/schema/search/bff/B003002Schema";
 import { validateRequest } from "@/utils/apiUtils";
-import { a003003Model } from "@/domain/search/api/A003003Model";
+import * as A003003Model from "@/domain/search/api/A003003Model";
 import * as CONSTANTS from "@/lib/apiConstants";
 import {
   successResponse,
@@ -37,7 +37,7 @@ async function get(payload) {
   if (cache) return successResponse(JSON.parse(cache));
 
   // A003_003_検索機能_全楽曲取得API実行
-  const result = await a003003Model(param);
+  const result = await A003003Model.getModel(param);
   // 異常終了の場合、内部サーバーエラー
   if (!result.success_flg) return internalServerErrorResponse();
 

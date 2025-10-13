@@ -2,8 +2,8 @@
 "use server";
 import { getSchema } from "@/schema/search/bff/B003001Schema";
 import { validateRequest } from "@/utils/apiUtils";
-import { a003001Model } from "@/domain/search/api/A003001Model";
-import { a003002Model } from "@/domain/search/api/A003002Model";
+import * as A003001Model from "@/domain/search/api/A003001Model";
+import * as A003002Model from "@/domain/search/api/A003002Model";
 import {
   successResponse,
   notFoundMethodErrorResponse,
@@ -29,8 +29,8 @@ async function get(payload) {
   if (param instanceof Response) return param;
 
   const [a003001Result, a003002Result] = await Promise.all([
-    param.artist_name ? a003001Model(param) : Promise.resolve(null),
-    a003002Model(param),
+    param.artist_name ? A003001Model.getModel(param) : Promise.resolve(null),
+    A003002Model.getModel(param),
   ]);
 
   if (

@@ -5,7 +5,7 @@ import logger from "@/lib/logger";
 
 const ifName = "A001_001_認証機能_ログイン照会API";
 
-export async function a001001Model(state) {
+export async function postModel(state) {
   const { user_id, password } = state;
 
   try {

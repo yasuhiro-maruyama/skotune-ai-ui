@@ -3,7 +3,7 @@
 import redis from "@/lib/redis";
 import { getSchema } from "@/schema/common/bff/B000002Schema";
 import { validateRequest } from "@/utils/apiUtils";
-import { a000002Model } from "@/domain/common/api/A000002Model";
+import * as A000002Model from "@/domain/common/api/A000002Model";
 import { REDIS_KEY } from "@/lib/apiConstants";
 import {
   successResponse,
@@ -38,7 +38,7 @@ async function get(payload) {
   if (cache) return successResponse(JSON.parse(cache).filter(codeIdFilter));
 
   // A000_002_共通機能_コード値取得API実行
-  const result = await a000002Model();
+  const result = await A000002Model.getModel();
   if (!result.success_flg) return internalServerErrorResponse();
 
   // キャッシュ保存

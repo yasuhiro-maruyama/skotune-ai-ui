@@ -5,7 +5,7 @@ import logger from "@/lib/logger";
 
 const ifName = "A003003_全楽曲取得API";
 
-export async function a003003Model(state) {
+export async function getModel(state) {
   const { artist_id } = state;
 
   try {

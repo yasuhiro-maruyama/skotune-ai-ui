@@ -3,7 +3,7 @@
 import redis from "@/lib/redis";
 import { getSchema } from "@/schema/common/bff/B000001Schema";
 import { validateRequest } from "@/utils/apiUtils";
-import { a000001Model } from "@/domain/common/api/A000001Model";
+import * as A000001Model from "@/domain/common/api/A000001Model";
 import { REDIS_KEY } from "@/lib/apiConstants";
 import {
   successResponse,
@@ -46,7 +46,7 @@ async function get(payload) {
   }
 
   // A000_001_共通機能_メニュー機能取得API実行
-  const result = await a000001Model();
+  const result = await A000001Model.getModel();
   if (!result.success_flg) return internalServerErrorResponse();
 
   // キャッシュ保存

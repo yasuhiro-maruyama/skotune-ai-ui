@@ -6,7 +6,7 @@ import jwt from "jsonwebtoken";
 import redis from "@/lib/redis";
 import { postSchema } from "@/schema/auth/bff/B001001Schema";
 import { validateRequest } from "@/utils/apiUtils";
-import { a001001Model } from "@/domain/auth/api/A001001Model";
+import * as A001001Model from "@/domain/auth/api/A001001Model";
 import * as CONSTANTS from "@/lib/apiConstants";
 import { notFoundMethodErrorResponse } from "@/lib/response";
 
@@ -31,7 +31,7 @@ async function post(payload) {
   if (param instanceof Response) return param;
 
   // A001_001_認証機能_ログイン照会API実行
-  const result = await a001001Model(param);
+  const result = await A001001Model.postModel(param);
 
   // 異常終了の場合、全て認証エラーとする
   if (!result.success_flg) return authErrorResponse();

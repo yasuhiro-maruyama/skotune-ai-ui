@@ -5,7 +5,7 @@ import logger from "@/lib/logger";
 
 const ifName = "A000_001_共通機能_メニュー機能取得API";
 
-export async function a000001Model() {
+export async function getModel() {
   try {
     const res = await apiClient.get("/common/001", {});
     return res.data;

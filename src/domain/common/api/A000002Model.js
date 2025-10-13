@@ -5,7 +5,7 @@ import logger from "@/lib/logger";
 
 const ifName = "A000_002_共通機能_コード値取得API";
 
-export async function a000002Model() {
+export async function getModel() {
   try {
     const res = await apiClient.get("/common/002", {});
     return res.data;

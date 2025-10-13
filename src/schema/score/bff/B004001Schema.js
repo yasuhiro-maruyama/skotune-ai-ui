@@ -1,4 +1,4 @@
-// B004001_採点履歴登録BFF Validation
+// B004_001_採点機能_楽曲予約情報BFF Validation
 import * as yup from "yup";
 import { apiValidationMessages } from "@/lib/messages";
 
@@ -12,7 +12,31 @@ const FIELD = {
   score: { logical_name: "点数", field_name: "score" },
   scoring_date: { logical_name: "採点日", field_name: "scoring_date" },
 };
-export const schema = yup.object().shape({
+export const getSchema = yup.object().shape({
+  user_id: yup
+    .string()
+    .required(function () {
+      return apiValidationMessages.required(
+        FIELD.user_id.logical_name,
+        FIELD.user_id.field_name
+      );
+    })
+    .email(function () {
+      return apiValidationMessages.email(
+        FIELD.user_id.logical_name,
+        FIELD.user_id.field_name
+      );
+    })
+    .max(200, function () {
+      return apiValidationMessages.maxLength(
+        FIELD.user_id.logical_name,
+        FIELD.user_id.field_name,
+        200
+      );
+    }),
+});
+
+export const postSchema = yup.object().shape({
   user_id: yup
     .string()
     .required(function () {
@@ -114,12 +138,6 @@ export const schema = yup.object().shape({
     ),
   model_type: yup
     .string()
-    .required(
-      apiValidationMessages.required(
-        FIELD.model_type.logical_name,
-        FIELD.model_type.field_name
-      )
-    )
     .length(
       2,
       apiValidationMessages.length(
@@ -127,15 +145,10 @@ export const schema = yup.object().shape({
         FIELD.model_type.field_name,
         2
       )
-    ),
+    )
+    .notRequired(),
   score: yup
     .number()
-    .required(
-      apiValidationMessages.required(
-        FIELD.score.logical_name,
-        FIELD.score.field_name
-      )
-    )
     .max(
       100,
       apiValidationMessages.maxNumber(
@@ -145,28 +158,59 @@ export const schema = yup.object().shape({
       )
     ),
   scoring_date: yup
-    .string()
-    .required(
-      apiValidationMessages.required(
+    .date()
+    .max(
+      new Date(),
+      apiValidationMessages.maxDate(
         FIELD.scoring_date.logical_name,
         FIELD.scoring_date.field_name
       )
-    )
-    .test("is-valid-date", "存在しない日付です", (value) => {
-      if (!value) return false;
-      const [year, month, day] = value.split("-").map(Number);
-      const date = new Date(value);
-      return (
-        date.getFullYear() === year &&
-        date.getMonth() + 1 === month &&
-        date.getDate() === day
+    ),
+});
+
+export const deleteSchema = yup.object().shape({
+  user_id: yup
+    .string()
+    .required(function () {
+      return apiValidationMessages.required(
+        FIELD.user_id.logical_name,
+        FIELD.user_id.field_name
+      );
+    })
+    .email(function () {
+      return apiValidationMessages.email(
+        FIELD.user_id.logical_name,
+        FIELD.user_id.field_name
+      );
+    })
+    .max(200, function () {
+      return apiValidationMessages.maxLength(
+        FIELD.user_id.logical_name,
+        FIELD.user_id.field_name,
+        200
       );
     }),
-  // .max(
-  //   new Date(),
-  //   apiValidationMessages.maxDate(
-  //     FIELD.scoring_date.logical_name,
-  //     FIELD.scoring_date.field_name
-  //   )
-  // ),
+  tune_id: yup
+    .string()
+    .required(
+      apiValidationMessages.required(
+        FIELD.tune_id.logical_name,
+        FIELD.tune_id.field_name
+      )
+    )
+    .length(
+      22,
+      apiValidationMessages.length(
+        FIELD.tune_id.logical_name,
+        FIELD.tune_id.field_name,
+        22
+      )
+    )
+    .matches(
+      /^[A-Za-z0-9]+$/,
+      apiValidationMessages.alphaNumeric(
+        FIELD.tune_id.logical_name,
+        FIELD.tune_id.field_name
+      )
+    ),
 });

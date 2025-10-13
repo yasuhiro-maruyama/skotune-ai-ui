@@ -28,6 +28,9 @@ paths:
                 - $ref: "#/components/schemas/B001_002_Request_Delete"
                 - $ref: "#/components/schemas/B003_001_Request_Get"
                 - $ref: "#/components/schemas/B003_002_Request_Get"
+                - $ref: "#/components/schemas/B004_001_Request_Get"
+                - $ref: "#/components/schemas/B004_001_Request_Post"
+                - $ref: "#/components/schemas/B004_001_Request_Delete"
             examples:
               B000_001_GET:
                 summary: B000_001_共通機能_メニュー情報BFF_リクエスト（GET）
@@ -76,6 +79,35 @@ paths:
                   method: get
                   payload:
                     artist_id: "64tJ2EAv1R6UaZqc4iOCyj"
+              B004_001_GET:
+                summary: B004_001_採点機能_楽曲予約情報BFF_リクエスト（GET）
+                value:
+                  ifId: B004_001
+                  method: get
+                  payload:
+                    user_id: "test@gmail.com"
+              B004_001_POST:
+                summary: B004_001_採点機能_楽曲予約情報BFF_リクエスト（POST）
+                value:
+                  ifId: B004_001
+                  method: post
+                  payload:
+                    user_id: "test@gmail.com"
+                    artist_id: "64tJ2EAv1R6UaZqc4iOCyj"
+                    artist_name: "YOASOBI"
+                    tune_id: "7ovUcF5uHTBRzUpB6ZOmvt"
+                    tune_name: "アイドル"
+                    model_type: "10"
+                    score: 88.888
+                    scoring_date: "2025-10-01"
+              B004_001_DELETE:
+                summary: B004_001_採点機能_楽曲予約情報BFF_リクエスト（DELETE）
+                value:
+                  ifId: B004_001
+                  method: delete
+                  payload:
+                    user_id: "test@gmail.com"
+                    tune_id: "7ovUcF5uHTBRzUpB6ZOmvt"
       responses:
         "200":
           description: 正常応答
@@ -90,6 +122,9 @@ paths:
                   - $ref: "#/components/schemas/B001_002_Response_Delete"
                   - $ref: "#/components/schemas/B003_001_Response_Get"
                   - $ref: "#/components/schemas/B003_002_Response_Get"
+                  - $ref: "#/components/schemas/B004_001_Response_Get"
+                  - $ref: "#/components/schemas/B004_001_Response_Post"
+                  - $ref: "#/components/schemas/B004_001_Response_Delete"
         "422":
           description: バリデーションエラー
 
@@ -194,6 +229,80 @@ components:
                   type: string
                   description: 歌手ID
               required: [artist_id]
+
+    B004_001_Request_Get:
+      title: B004_001_採点機能_楽曲予約情報BFF_リクエスト（GET）
+      allOf:
+        - $ref: "#/components/schemas/BaseRequest"
+        - type: object
+          properties:
+            payload:
+              type: object
+              properties:
+                user_id:
+                  type: string
+                  description: ユーザーID
+              required: [user_id]
+    B004_001_Request_Post:
+      title: B004_001_採点機能_楽曲予約情報BFF_リクエスト（POST）
+      allOf:
+        - $ref: "#/components/schemas/BaseRequest"
+        - type: object
+          properties:
+            payload:
+              type: object
+              properties:
+                user_id:
+                  type: string
+                  description: ユーザーID
+                artist_id:
+                  type: string
+                  description: 歌手ID
+                artist_name:
+                  type: string
+                  description: 歌手名
+                tune_id:
+                  type: string
+                  description: 楽曲ID
+                tune_name:
+                  type: string
+                  description: 楽曲名
+                model_type:
+                  type: string
+                  description: 採点機種
+                score:
+                  type: number
+                  description: 点数
+                scoring_date:
+                  type: string
+                  description: 採点日
+              required:
+                [
+                  user_id,
+                  artist_id,
+                  artist_name,
+                  tune_id,
+                  tune_name,
+                  model_type,
+                  score,
+                  scoring_date,
+                ]
+    B004_001_Request_Delete:
+      title: B004_001_採点機能_楽曲予約情報BFF_リクエスト（DELETE）
+      allOf:
+        - $ref: "#/components/schemas/BaseRequest"
+        - type: object
+          properties:
+            payload:
+              type: object
+              properties:
+                user_id:
+                  type: string
+                  description: ユーザーID
+                tune_id:
+                  type: string
+                  description: 楽曲ID
+              required: [user_id, tune_id]
 
     BaseResponse:
       title: 共通レスポンス
@@ -414,3 +523,67 @@ components:
                   external_url:
                     type: string
                     description: 外部URL
+
+    B004_001_Response_Get:
+      title: B004_001_採点機能_楽曲予約情報BFF_レスポンス（GET）
+      allOf:
+        - $ref: "#/components/schemas/BaseResponse"
+        - type: object
+          properties:
+            response_info:
+              type: array
+              items:
+                type: object
+                properties:
+                  user_id:
+                    type: string
+                    description: ユーザーID
+                  artist_id:
+                    type: string
+                    description: 歌手ID
+                  artist_name:
+                    type: string
+                    description: 歌手名
+                  tune_id:
+                    type: string
+                    description: 楽曲ID
+                  tune_name:
+                    type: string
+                    description: 楽曲名
+                  model_type:
+                    type: string
+                    description: 採点機種
+                  score:
+                    type: number
+                    description: 点数
+                  scoring_date:
+                    type: string
+                    description: 採点日
+    B004_001_Response_Post:
+      title: B004_001_採点機能_楽曲予約情報BFF_レスポンス（POST）
+      allOf:
+        - $ref: "#/components/schemas/BaseResponse"
+        - type: object
+          properties:
+            response_info:
+              type: array
+              items:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: ステータス
+    B004_001_Response_Delete:
+      title: B004_001_採点機能_楽曲予約情報BFF_レスポンス（DELETE）
+      allOf:
+        - $ref: "#/components/schemas/BaseResponse"
+        - type: object
+          properties:
+            response_info:
+              type: array
+              items:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: ステータス

@@ -31,6 +31,7 @@ export const REDIS_KEY = {
   COMMON_MENU: "common_menu",
   COMMON_CODE: "common_code",
   AUTH_TOKEN: "auth_token",
+  SCORE_RESERVATION: "score_reservation",
 };
 
 // Redis用定数

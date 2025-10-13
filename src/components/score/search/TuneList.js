@@ -11,7 +11,8 @@ import Table from "@/components/Table";
 import Pagination from "@/components/Pagination";
 import userModel from "@/domain/common/store/userModel";
 import reservationModel from "@/domain/score/store/score/reservationModel";
-import { b004002Model } from "@/domain/score/bff/B004002Model";
+import { b004001Model } from "@/domain/score/bff/B004001Model";
+import * as CONSTANTS from "@/lib/apiConstants";
 
 export default function Component({ data, searchCount }) {
   // バリデーション用(なし)
@@ -32,7 +33,7 @@ export default function Component({ data, searchCount }) {
     data && data.length > 0 ? Math.ceil(data.length / perPage) : 1;
 
   const column = [
-    { key: "image.2.url", label: "イメージ", option: TABLE_OPTION.IMAGE },
+    { key: "image", label: "イメージ", option: TABLE_OPTION.IMAGE },
     { key: "artist_name", label: "歌手名", option: null },
     {
       key: "tune_name",
@@ -84,8 +85,11 @@ export default function Component({ data, searchCount }) {
     // ローディング開始
     setLoading(data.tune_id);
 
-    // B004002_楽曲予約登録BFF
-    const result = await b004002Model({ ...data, user_id: userInfo.user_id });
+    // B004_001_採点機能_楽曲予約情報BFF実行(登録)
+    const result = await b004001Model(CONSTANTS.HTTP_METHOD.POST, {
+      ...data,
+      user_id: userInfo.user_id,
+    });
 
     // 異常終了メッセージ
     if (!result.success_flg) {

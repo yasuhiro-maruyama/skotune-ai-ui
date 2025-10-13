@@ -13,8 +13,9 @@ import reservationModel from "@/domain/score/store/score/reservationModel";
 import userModel from "@/domain/common/store/userModel";
 import { b000002Model } from "@/domain/common/bff/B000002Model";
 import { b004001Model } from "@/domain/score/bff/B004001Model";
-import { b004004Model } from "@/domain/score/bff/B004004Model";
+import { b004002Model } from "@/domain/score/bff/B004002Model";
 import { schema_score } from "@/schema/score/ui/U004001Schema";
+import * as CONSTANTS from "@/lib/apiConstants";
 
 export default function Component() {
   // バリデーション用
@@ -108,8 +109,11 @@ export default function Component() {
     setCurrentPage(1);
 
     const getCode = async () => {
-      // B000_002_共通機能_コード値取得BFF実行
-      const result = await b000002Model({ code_id: "0001" });
+      // B000_002_共通機能_コード値情報BFF実行
+      const result = await b000002Model(CONSTANTS.HTTP_METHOD.GET, {
+        code_id: CONSTANTS.CODE.MODEL_TYPE,
+      });
+      console.log(result);
       // 異常終了メッセージ
       if (!result.success_flg) {
         toast.error(UI_MSG.masterError);
@@ -130,19 +134,22 @@ export default function Component() {
     // ローディング開始
     setLoading(data.tune_id);
 
-    // B004001_採点履歴登録BFF実行
-    const b004001Result = await b004001Model(data);
+    // B004_002_採点機能_採点履歴情報BFF実行(登録)
+    const b004002Result = await b004002Model(CONSTANTS.HTTP_METHOD.POST, data);
     // 異常終了メッセージ
-    if (!b004001Result.success_flg) {
+    if (!b004002Result.success_flg) {
       toast.error(UI_MSG.scoreRegisterError);
       setLoading(null);
       return;
     }
 
-    // B004004_楽曲予約削除BFF実行
-    const b004004Result = await b004004Model(data);
+    // B004_001_採点機能_楽曲予約情報BFF実行(削除)
+    const b004001Result = await b004001Model(
+      CONSTANTS.HTTP_METHOD.DELETE,
+      data
+    );
     // 異常終了メッセージ
-    if (!b004004Result.success_flg) {
+    if (!b004001Result.success_flg) {
       toast.error(UI_MSG.scoreRegisterError);
       setLoading(null);
       return;

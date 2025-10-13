@@ -59,3 +59,8 @@ export const ENV = {
 export const COOKIE_OPTION = {
   SAME_SITE: "lax",
 };
+
+// コード用定数
+export const CODE = {
+  MODEL_TYPE: "0001",
+};

@@ -11,6 +11,7 @@ import { TABLE_OPTION } from "@/lib/uiConstants";
 import Table from "@/components/Table";
 import Pagination from "@/components/Pagination";
 import { b003002Model } from "@/domain/search/bff/B003002Model";
+import * as CONSTANTS from "@/lib/apiConstants";
 
 export default function Component({ data, onAllTune, searchCount }) {
   // バリデーション用(なし)
@@ -31,7 +32,7 @@ export default function Component({ data, onAllTune, searchCount }) {
 
   // テーブル生成
   const column = [
-    { key: "image.2.url", label: "イメージ", option: TABLE_OPTION.IMAGE },
+    { key: "image", label: "イメージ", option: TABLE_OPTION.IMAGE },
     {
       key: "artist_name",
       label: "歌手名",
@@ -71,8 +72,8 @@ export default function Component({ data, onAllTune, searchCount }) {
     // ローディング開始
     setLoading(data.artist_id);
 
-    // B003002_全楽曲取得BFF実行
-    const result = await b003002Model(data);
+    // B003_002_検索機能_全楽曲情報BFF実行
+    const result = await b003002Model(CONSTANTS.HTTP_METHOD.GET, data);
 
     // 異常終了メッセージ
     if (!result.success_flg) {

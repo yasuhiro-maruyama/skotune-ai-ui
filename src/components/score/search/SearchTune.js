@@ -8,6 +8,7 @@ import { UI_TYPE } from "@/lib/uiConstants";
 import { UI_MSG } from "@/lib/messages";
 import { b003001Model } from "@/domain/search/bff/B003001Model";
 import { schema_search } from "@/schema/score/ui/U004001Schema";
+import * as CONSTANTS from "@/lib/apiConstants";
 
 export default function Component({ onSearch }) {
   // バリデーション用
@@ -29,8 +30,8 @@ export default function Component({ onSearch }) {
     // ローディング開始
     setLoading(true);
 
-    // B003001_楽曲検索BFF実行
-    const result = await b003001Model(data);
+    // B003_001_検索機能_楽曲情報BFF実行
+    const result = await b003001Model(CONSTANTS.HTTP_METHOD.GET, data);
 
     // 異常終了メッセージ
     if (!result.success_flg) {

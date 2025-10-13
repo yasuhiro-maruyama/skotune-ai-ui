@@ -11,6 +11,7 @@ import { UI_MSG } from "@/lib/messages";
 import userModel from "@/domain/common/store/userModel";
 import { b001001Model } from "@/domain/auth/bff/B001001Model";
 import { schema } from "@/schema/auth/ui/U001001Schema";
+import * as CONSTANTS from "@/lib/apiConstants";
 
 // ログイン画面
 export default function Page() {
@@ -33,7 +34,7 @@ export default function Page() {
   // ログインボタン押下時
   const loginButton = async (data) => {
     // B001_001_認証機能_ログイン照会BFF実行
-    const result = await b001001Model(data);
+    const result = await b001001Model(CONSTANTS.HTTP_METHOD.POST, data);
 
     // 異常終了であれば、メッセージを表示して終了
     if (!result.success_flg) {

@@ -1,10 +1,10 @@
-// B004001_採点履歴登録BFF Model
+// B004_001_採点機能_楽曲予約情報BFF Model
 "use client";
 import bffClient from "@/lib/BFFModel";
 
-const ifName = "B004001_採点履歴登録BFF";
+const ifName = "B004_001_採点機能_楽曲予約情報BFF";
 
-export async function b004001Model(state) {
+export async function b004001Model(method, state) {
   const {
     user_id,
     artist_id,
@@ -17,15 +17,19 @@ export async function b004001Model(state) {
   } = state;
 
   try {
-    const res = await bffClient.post("/score/register", {
-      user_id,
-      artist_id,
-      artist_name,
-      tune_id,
-      tune_name,
-      model_type,
-      score,
-      scoring_date,
+    const res = await bffClient.post("/bff", {
+      ifId: "B004_001",
+      method,
+      payload: {
+        user_id,
+        artist_id,
+        artist_name,
+        tune_id,
+        tune_name,
+        model_type,
+        score,
+        scoring_date,
+      },
     });
     return res.data;
   } catch (err) {

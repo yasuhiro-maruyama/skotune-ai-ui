@@ -7,8 +7,10 @@ import { useMediaQuery } from "@/hooks/useMediaQuery";
 import userModel from "@/domain/common/store/userModel";
 import menuModel from "@/domain/common/store/menuModel";
 import reservationModel from "@/domain/score/store/score/reservationModel";
+import { b000001Model } from "@/domain/common/bff/B000001Model";
 import { b001002Model } from "@/domain/auth/bff/B001002Model";
-import { b004003Model } from "@/domain/score/bff/B004003Model";
+import { b004001Model } from "@/domain/score/bff/B004001Model";
+import * as CONSTANTS from "@/lib/apiConstants";
 
 export default function RootLayout({ children }) {
   const router = useRouter();
@@ -26,9 +28,8 @@ export default function RootLayout({ children }) {
     }
 
     const checkAuth = async () => {
-      // トークン取得BFF実行
-      const b001002Result = await b001002Model();
-      // トークンがなければログイン画面へリダイレクト
+      // B001_002_認証機能_トークン情報BFF実行
+      const b001002Result = await b001002Model(CONSTANTS.HTTP_METHOD.GET);
       if (!b001002Result.success_flg) {
         router.push("/auth/login");
         // ローディング完了
@@ -37,9 +38,22 @@ export default function RootLayout({ children }) {
       }
 
       // ユーザー情報取得
-      const userInfo = b001002Result.response_info.user_info;
+      const userInfo = b001002Result.response_info;
+
+      // B000_001_共通機能_メニュー情報BFF実行
+      const b000001Result = await b000001Model(
+        CONSTANTS.HTTP_METHOD.GET,
+        userInfo
+      );
+      if (!b000001Result.success_flg) {
+        router.push("/auth/login");
+        // ローディング完了
+        setLoadingCompleted(true);
+        return;
+      }
+
       // メニュー情報取得
-      const menuInfo = b001002Result.response_info.menu_info;
+      const menuInfo = b000001Result.response_info;
       // ユーザー情報再保存
       userModel.getState().setModel(userInfo);
       // メニュー情報設定
@@ -50,11 +64,13 @@ export default function RootLayout({ children }) {
       // メニューに含まれていない遷移先の場合
       if (!validPaths.includes(pathname)) router.push("/skotune/home");
 
-      // B004003_楽曲予約取得BFF実行
-      const b004003Result = await b004003Model({ user_id: userInfo.user_id });
+      // B004_001_採点機能_楽曲予約情報BFF実行
+      const b004001Result = await b004001Model(CONSTANTS.HTTP_METHOD.GET, {
+        user_id: userInfo.user_id,
+      });
 
       // 異常終了
-      if (!b004003Result.success_flg) {
+      if (!b004001Result.success_flg) {
         // ローディング完了
         setLoadingCompleted(true);
         return;
@@ -62,7 +78,7 @@ export default function RootLayout({ children }) {
 
       // 採点登録情報設定
       reservationModel.getState().setModel(
-        b004003Result.response_info.map((item) => ({
+        b004001Result.response_info.map((item) => ({
           ...{
             model_type: null,
             score: 0.0,

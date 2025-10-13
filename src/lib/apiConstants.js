@@ -12,6 +12,14 @@ export const HTTP_STATUS = {
   INTERNAL_SERVER_ERROR: 500,
 };
 
+// HTTPメソッド
+export const HTTP_METHOD = {
+  GET: "get",
+  POST: "post",
+  PUT: "put",
+  DELETE: "delete",
+};
+
 // レスポンスコード
 export const RESPONSE_CODE = {
   SUCCESS: "0000",

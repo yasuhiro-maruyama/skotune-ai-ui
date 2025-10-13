@@ -1,17 +1,16 @@
-// A003002_楽曲取得API Model
+// A003_002_検索機能_楽曲取得API Model
 "use server";
 import apiClient from "@/lib/APIModel";
 import logger from "@/lib/logger";
 
-const ifName = "A003002_楽曲取得API";
+const ifName = "A003_002_検索機能_楽曲取得API";
 
 export async function a003002Model(state) {
   const { artist_name, tune_name } = state;
 
   try {
-    const res = await apiClient.post("/search/tune", {
-      artist_name,
-      tune_name,
+    const res = await apiClient.get("/search/002", {
+      params: { artist_name, tune_name },
     });
     return res.data;
   } catch (err) {

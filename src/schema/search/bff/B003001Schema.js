@@ -7,7 +7,7 @@ const FIELD = {
   tune_name: "曲名",
 };
 
-export const schema = yup
+export const getSchema = yup
   .object()
   .shape({
     artist_name: yup

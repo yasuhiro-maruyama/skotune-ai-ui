@@ -21,28 +21,29 @@ paths:
           application/json:
             schema:
               oneOf:
-                - $ref: "#/components/schemas/B000_001_Request"
-                - $ref: "#/components/schemas/B000_002_Request"
-                - $ref: "#/components/schemas/B001_001_Request"
+                - $ref: "#/components/schemas/B000_001_Request_Get"
+                - $ref: "#/components/schemas/B000_002_Request_Get"
+                - $ref: "#/components/schemas/B001_001_Request_Post"
                 - $ref: "#/components/schemas/B001_002_Request_Get"
                 - $ref: "#/components/schemas/B001_002_Request_Delete"
+                - $ref: "#/components/schemas/B003_001_Request_Get"
             examples:
-              B000_001:
-                summary: B000_001_共通機能_メニュー情報BFF_リクエスト
+              B000_001_GET:
+                summary: B000_001_共通機能_メニュー情報BFF_リクエスト（GET）
                 value:
                   ifId: B000_001
                   method: get
                   payload:
                     administrator_flg: true
-              B000_002:
-                summary: B000_002_共通機能_コード値情報BFF_リクエスト
+              B000_002_GET:
+                summary: B000_002_共通機能_コード値情報BFF_リクエスト（GET）
                 value:
                   ifId: B000_002
                   method: get
                   payload:
                     code_id: "0001"
-              B001_001:
-                summary: B001_001_認証機能_ログイン照会BFF_リクエスト
+              B001_001_POST:
+                summary: B001_001_認証機能_ログイン照会BFF_リクエスト（POST）
                 value:
                   ifId: B001_001
                   method: post
@@ -59,6 +60,14 @@ paths:
                 value:
                   ifId: B001_002
                   method: delete
+              B003_001_GET:
+                summary: B003_001_検索機能_楽曲情報BFF_リクエスト（GET）
+                value:
+                  ifId: B003_001
+                  method: get
+                  payload:
+                    artist_name: "YOASOBI"
+                    tune_name: "アイドル"
       responses:
         "200":
           description: 正常応答
@@ -66,11 +75,12 @@ paths:
             application/json:
               schema:
                 oneOf:
-                  - $ref: "#/components/schemas/B000_001_Response"
-                  - $ref: "#/components/schemas/B000_002_Response"
-                  - $ref: "#/components/schemas/B001_001_Response"
+                  - $ref: "#/components/schemas/B000_001_Response_Get"
+                  - $ref: "#/components/schemas/B000_002_Response_Get"
+                  - $ref: "#/components/schemas/B001_001_Response_Post"
                   - $ref: "#/components/schemas/B001_002_Response_Get"
                   - $ref: "#/components/schemas/B001_002_Response_Delete"
+                  - $ref: "#/components/schemas/B003_001_Response_Get"
         "422":
           description: バリデーションエラー
 
@@ -90,8 +100,8 @@ components:
           type: object
       required: [ifId, method, payload]
 
-    B000_001_Request:
-      title: B000_001_共通機能_メニュー情報BFF_リクエスト
+    B000_001_Request_Get:
+      title: B000_001_共通機能_メニュー情報BFF_リクエスト（GET）
       allOf:
         - $ref: "#/components/schemas/BaseRequest"
         - type: object
@@ -104,8 +114,8 @@ components:
                   description: 管理者フラグ
               required: [administrator_flg]
 
-    B000_002_Request:
-      title: B000_002_共通機能_コード値情報BFF_リクエスト
+    B000_002_Request_Get:
+      title: B000_002_共通機能_コード値情報BFF_リクエスト（GET）
       allOf:
         - $ref: "#/components/schemas/BaseRequest"
         - type: object
@@ -118,8 +128,8 @@ components:
                   description: コードID
               required: [code_id]
 
-    B001_001_Request:
-      title: B001_001_認証機能_ログイン照会BFF_リクエスト
+    B001_001_Request_Post:
+      title: B001_001_認証機能_ログイン照会BFF_リクエスト（POST）
       allOf:
         - $ref: "#/components/schemas/BaseRequest"
         - type: object
@@ -146,6 +156,22 @@ components:
         - $ref: "#/components/schemas/BaseRequest"
         - type: object
 
+    B003_001_Request_Get:
+      title: B003_001_検索機能_楽曲情報BFF_リクエスト（GET）
+      allOf:
+        - $ref: "#/components/schemas/BaseRequest"
+        - type: object
+          properties:
+            payload:
+              type: object
+              properties:
+                artist_name:
+                  type: string
+                  description: 歌手名
+                tune_name:
+                  type: string
+                  description: 曲名
+
     BaseResponse:
       title: 共通レスポンス
       type: object
@@ -161,8 +187,8 @@ components:
           description: 結果メッセージ
       required: [success_flg, code]
 
-    B000_001_Response:
-      title: B000_001_共通機能_メニュー情報BFF_レスポンス
+    B000_001_Response_Get:
+      title: B000_001_共通機能_メニュー情報BFF_レスポンス（GET）
       allOf:
         - $ref: "#/components/schemas/BaseResponse"
         - type: object
@@ -188,8 +214,8 @@ components:
                     type: boolean
                     description: 管理者フラグ
 
-    B000_002_Response:
-      title: B000_002_共通機能_コード値情報BFF_レスポンス
+    B000_002_Response_Get:
+      title: B000_002_共通機能_コード値情報BFF_レスポンス（GET）
       allOf:
         - $ref: "#/components/schemas/BaseResponse"
         - type: object
@@ -204,10 +230,10 @@ components:
                     description: コード値
                   code_name:
                     type: string
-                    description: コード名称
+                    description: コード名
 
-    B001_001_Response:
-      title: B001_001_認証機能_ログイン照会BFF_レスポンス
+    B001_001_Response_Post:
+      title: B001_001_認証機能_ログイン照会BFF_レスポンス（POST）
       allOf:
         - $ref: "#/components/schemas/BaseResponse"
         - type: object
@@ -222,7 +248,7 @@ components:
                     description: ユーザーID
                   user_name:
                     type: string
-                    description: ユーザー名称
+                    description: ユーザー名
                   administrator_flg:
                     type: boolean
                     description: 管理者フラグ
@@ -243,7 +269,7 @@ components:
                     description: ユーザーID
                   user_name:
                     type: string
-                    description: ユーザー名称
+                    description: ユーザー名
                   administrator_flg:
                     type: boolean
                     description: 管理者フラグ
@@ -261,3 +287,74 @@ components:
                   status:
                     type: string
                     description: ステータス
+
+    B0003_001_Response_Get:
+      title: B003_001_検索機能_楽曲情報BFF_レスポンス（GET）
+      allOf:
+        - $ref: "#/components/schemas/BaseResponse"
+        - type: object
+          properties:
+            response_info:
+              type: array
+              items:
+                type: object
+                properties:
+                  artist_info:
+                    type: array
+                    description: 歌手情報
+                    items:
+                      type: object
+                      properties:
+                        artist_id:
+                          type: string
+                          description: 歌手ID
+                        artist_name:
+                          type: string
+                          description: 歌手名
+                        popularity:
+                          type: number
+                          description: 人気度
+                        follower:
+                          type: number
+                          description: フォロワー数
+                        genre:
+                          type: array
+                          description: ジャンル
+                          items:
+                            type: string
+                        image:
+                          type: string
+                          description: 画像
+                        external_url:
+                          type: string
+                          description: 外部URL
+                  tune_info:
+                    type: array
+                    description: 楽曲情報
+                    items:
+                      type: object
+                      properties:
+                        artist_id:
+                          type: string
+                          description: 歌手ID
+                        artist_name:
+                          type: string
+                          description: 歌手名
+                        tune_id:
+                          type: string
+                          description: 楽曲ID
+                        tune_name:
+                          type: string
+                          description: 楽曲名
+                        popularity:
+                          type: number
+                          description: 人気度
+                        release_date:
+                          type: string
+                          description: リリース日
+                        image:
+                          type: string
+                          description: 画像
+                        external_url:
+                          type: string
+                          description: 外部URL

@@ -27,6 +27,7 @@ paths:
                 - $ref: "#/components/schemas/B001_002_Request_Get"
                 - $ref: "#/components/schemas/B001_002_Request_Delete"
                 - $ref: "#/components/schemas/B003_001_Request_Get"
+                - $ref: "#/components/schemas/B003_002_Request_Get"
             examples:
               B000_001_GET:
                 summary: B000_001_共通機能_メニュー情報BFF_リクエスト（GET）
@@ -68,6 +69,13 @@ paths:
                   payload:
                     artist_name: "YOASOBI"
                     tune_name: "アイドル"
+              B003_002_GET:
+                summary: B003_002_検索機能_全楽曲情報BFF_リクエスト（GET）
+                value:
+                  ifId: B003_002
+                  method: get
+                  payload:
+                    artist_id: "64tJ2EAv1R6UaZqc4iOCyj"
       responses:
         "200":
           description: 正常応答
@@ -81,6 +89,7 @@ paths:
                   - $ref: "#/components/schemas/B001_002_Response_Get"
                   - $ref: "#/components/schemas/B001_002_Response_Delete"
                   - $ref: "#/components/schemas/B003_001_Response_Get"
+                  - $ref: "#/components/schemas/B003_002_Response_Get"
         "422":
           description: バリデーションエラー
 
@@ -171,6 +180,20 @@ components:
                 tune_name:
                   type: string
                   description: 曲名
+
+    B003_002_Request_Get:
+      title: B003_002_検索機能_全楽曲情報BFF_リクエスト（GET）
+      allOf:
+        - $ref: "#/components/schemas/BaseRequest"
+        - type: object
+          properties:
+            payload:
+              type: object
+              properties:
+                artist_id:
+                  type: string
+                  description: 歌手ID
+              required: [artist_id]
 
     BaseResponse:
       title: 共通レスポンス
@@ -288,7 +311,7 @@ components:
                     type: string
                     description: ステータス
 
-    B0003_001_Response_Get:
+    B003_001_Response_Get:
       title: B003_001_検索機能_楽曲情報BFF_レスポンス（GET）
       allOf:
         - $ref: "#/components/schemas/BaseResponse"
@@ -358,3 +381,36 @@ components:
                         external_url:
                           type: string
                           description: 外部URL
+
+    B003_002_Response_Get:
+      title: B003_002_検索機能_全楽曲情報BFF_レスポンス（GET）
+      allOf:
+        - $ref: "#/components/schemas/BaseResponse"
+        - type: object
+          properties:
+            response_info:
+              type: array
+              items:
+                type: object
+                properties:
+                  artist_id:
+                    type: string
+                    description: 歌手ID
+                  artist_name:
+                    type: string
+                    description: 歌手名
+                  tune_id:
+                    type: string
+                    description: 楽曲ID
+                  tune_name:
+                    type: string
+                    description: 楽曲名
+                  release_date:
+                    type: string
+                    description: リリース日
+                  image:
+                    type: string
+                    description: 画像
+                  external_url:
+                    type: string
+                    description: 外部URL

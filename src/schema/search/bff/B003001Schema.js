@@ -1,4 +1,4 @@
-// B003001_楽曲検索BFF Validation
+// B003_001_検索機能_楽曲情報BFF Validation
 import * as yup from "yup";
 import { apiValidationMessages } from "@/lib/messages";
 

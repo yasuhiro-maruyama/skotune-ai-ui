@@ -1,10 +1,10 @@
-// B003002_全楽曲取得BFF Validation
+// B003_002_検索機能_全楽曲情報BFF Validation
 import * as yup from "yup";
 import { apiValidationMessages } from "@/lib/messages";
 
 const FIELD = { artist_id: "歌手ID" };
 
-export const schema = yup.object().shape({
+export const getSchema = yup.object().shape({
   artist_id: yup
     .string()
     .required(function () {

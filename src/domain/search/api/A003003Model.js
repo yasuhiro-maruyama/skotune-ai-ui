@@ -9,7 +9,7 @@ export async function a003003Model(state) {
   const { artist_id } = state;
 
   try {
-    const res = await apiClient.post("/search/artist/tune", { artist_id });
+    const res = await apiClient.get("/search/003", { params: { artist_id } });
     return res.data;
   } catch (err) {
     logger.error(ifName + "で通信エラーが発生しました。", err.msseage);

@@ -5,6 +5,7 @@ import B001_002 from "@/app/api/bff/auth/B001_002";
 import B003_001 from "@/app/api/bff/search/B003_001";
 import B003_002 from "@/app/api/bff/search/B003_002";
 import B004_001 from "@/app/api/bff/score/B004_001";
+import B004_002 from "@/app/api/bff/score/B004_002";
 
 export const Routes = {
   B000_001,
@@ -14,4 +15,5 @@ export const Routes = {
   B003_001,
   B003_002,
   B004_001,
+  B004_002,
 };

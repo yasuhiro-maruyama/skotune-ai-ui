@@ -8,7 +8,7 @@ import { postSchema } from "@/schema/auth/bff/B001001Schema";
 import { validateRequest } from "@/utils/apiUtils";
 import * as A001001Model from "@/domain/auth/api/A001001Model";
 import * as CONSTANTS from "@/lib/apiConstants";
-import { notFoundMethodErrorResponse } from "@/lib/response";
+import { notFoundMethodErrorResponse, authErrorResponse } from "@/lib/response";
 
 const SESSION_TIME = 60 * 60 * 24; // ログインの有効時間(24時間)
 

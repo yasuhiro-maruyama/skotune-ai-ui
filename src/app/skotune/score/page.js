@@ -1,6 +1,7 @@
 "use client";
 import Tab from "@/components/Tab";
 import Search from "@/components/score/Search";
+import History from "@/components/score/History";
 import Register from "@/components/score/Register";
 
 const tabData = [
@@ -12,7 +13,7 @@ const tabData = [
   {
     key: "history",
     label: "履歴検索",
-    content: <div>準備中です。</div>,
+    content: <History />,
   },
   {
     key: "mylist",

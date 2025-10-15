@@ -23,6 +23,7 @@ export const UI_MSG = {
   scoreRegisterError:
     "採点登録機能に異常が発生しました。時間をおいて確認してください。",
   scoreRegisterSuccess: "採点情報が正常に登録されました。",
+  scoreReservationDeleteSuccess: "予約情報が正常に削除されました。",
 };
 
 // バリデーションエラーAPI用メッセージ

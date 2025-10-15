@@ -25,7 +25,8 @@ export default function Component() {
 
   const perPage = 10;
   const [currentPage, setCurrentPage] = useState(1);
-  const [loading, setLoading] = useState(null);
+  const [registerLoading, setRegisterLoading] = useState(null);
+  const [deleteLoading, setDeleteLoading] = useState(null);
   const [modelTypeCode, setModelTypeCode] = useState([]);
   const [registerInfo, setRegisterInfo] = useState([]);
   const reservationInfo = reservationModel((state) => state.model);
@@ -66,10 +67,10 @@ export default function Component() {
       label: "登録",
       option: TABLE_OPTION.BUTTON,
       button: (item, index) => {
-        const isLoading = loading === item.tune_id;
+        const isRegisterLoading = registerLoading === item.tune_id;
         const isRegister = registerInfo.some((s) => s.tune_id === item.tune_id);
-        const isDisabled = isLoading || isRegister;
-        const label = isLoading
+        const isDisabled = isRegisterLoading || isRegister;
+        const label = isRegisterLoading
           ? "登録中..."
           : isRegister
           ? "登録済み"
@@ -95,6 +96,52 @@ export default function Component() {
                   });
                 }
               });
+            }}
+          >
+            {label}
+          </button>
+        );
+      },
+    },
+    {
+      key: "button",
+      label: "削除",
+      option: TABLE_OPTION.BUTTON,
+      button: (item, index) => {
+        const isDeleteLoading = deleteLoading === item.tune_id;
+        const isDelete = registerInfo.some((s) => s.tune_id === item.tune_id);
+        const isDisabled = isDeleteLoading || isDelete;
+        const label = isDeleteLoading
+          ? "削除中..."
+          : isDelete
+          ? "削除済み"
+          : "削除";
+        return (
+          <button
+            type={UI_TYPE.BUTTON}
+            className={`btn ${isDisabled && "cursor-not-allowed"} ${
+              isDelete && "!bg-gray-600"
+            }`}
+            disabled={isDisabled}
+            onClick={() => {
+              const fieldKeys = ["model_type", "score", "scoring_date"];
+              const targets = fieldKeys.map((key) => `table.${index}.${key}`);
+              deleteTune({
+                user_id: userInfo.user_id,
+                artist_id: item.artist_id,
+                tune_id: item.tune_id,
+              });
+              // form.trigger(targets).then((valid) => {
+              //   if (valid) {
+              //     const values = form.getValues();
+              //     deleteTune({
+              //       ...values.table?.[index],
+              //       user_id: userInfo.user_id,
+              //       artist_id: item.artist_id,
+              //       tune_id: item.tune_id,
+              //     });
+              //   }
+              // });
             }}
           >
             {label}
@@ -132,14 +179,14 @@ export default function Component() {
   // 登録ボタン押下
   const registerTune = async (data) => {
     // ローディング開始
-    setLoading(data.tune_id);
+    setRegisterLoading(data.tune_id);
 
     // B004_002_採点機能_採点履歴情報BFF実行(登録)
     const b004002Result = await b004002Model(CONSTANTS.HTTP_METHOD.POST, data);
     // 異常終了メッセージ
     if (!b004002Result.success_flg) {
       toast.error(UI_MSG.scoreRegisterError);
-      setLoading(null);
+      setRegisterLoading(null);
       return;
     }
 
@@ -151,7 +198,7 @@ export default function Component() {
     // 異常終了メッセージ
     if (!b004001Result.success_flg) {
       toast.error(UI_MSG.scoreRegisterError);
-      setLoading(null);
+      setRegisterLoading(null);
       return;
     }
 
@@ -162,7 +209,34 @@ export default function Component() {
     setRegisterInfo((prev) => [...prev, data]);
 
     // ローディング終了
-    setLoading(null);
+    setRegisterLoading(null);
+  };
+
+  // 削除ボタン押下
+  const deleteTune = async (data) => {
+    // ローディング開始
+    setDeleteLoading(data.tune_id);
+
+    // B004_001_採点機能_楽曲予約情報BFF実行(削除)
+    const b004001Result = await b004001Model(
+      CONSTANTS.HTTP_METHOD.DELETE,
+      data
+    );
+    // 異常終了メッセージ
+    if (!b004001Result.success_flg) {
+      toast.error(UI_MSG.scoreRegisterError);
+      setDeleteLoading(null);
+      return;
+    }
+
+    // 正常終了メッセージ
+    toast.success(UI_MSG.scoreReservationDeleteSuccess);
+
+    // 登録済みのデータを配列に追加
+    setRegisterInfo((prev) => [...prev, data]);
+
+    // ローディング終了
+    setDeleteLoading(null);
   };
 
   return (
